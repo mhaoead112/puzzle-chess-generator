@@ -2,6 +2,11 @@
     --square: 48px;
     --light: lightsalmon;
     --dark: salmon;
+    --background: lightcyan;
+    --selected: rebeccapurple;
+    --selected-text: white;
+    --hover: black;
+    --hover-text: white;
 }
 
 * {
@@ -16,7 +21,7 @@ body {
     text-align: center;
     justify-content: center;
     align-items: center;
-    background-color: lightcyan;
+    background-color: var(--background);
 }
 
 main {
@@ -37,6 +42,16 @@ main div {
     min-height: var(--square);
 }
 
+main div.selected {
+    background-color: var(--selected) !important;
+    color: var(--selected-text) !important;
+}
+
+main div.selected:hover {
+    background-color: var(--selected) !important;
+    color: var(--selected-text) !important;
+}
+
 #a1, #c1, #e1, #g1, #b2, #d2, #f2, #h2,
 #a3, #c3, #e3, #g3, #b4, #d4, #f4, #h4,
 #a5, #c5, #e5, #g5, #b6, #d6, #f6, #h6,
@@ -45,8 +60,8 @@ main div {
 }
 
 main div:hover {
-    color: white !important;
-    background-color: black !important;
+    color: var(--hover-text) !important;
+    background-color: var(--hover) !important;
 }
 
 footer nav a {
