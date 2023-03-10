@@ -42,6 +42,13 @@ main div {
     min-height: var(--square);
 }
 
+main div.circle span {
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background-color: var(--selected);
+}
+
 main div.selected {
     background-color: var(--selected) !important;
     color: var(--selected-text) !important;
@@ -60,8 +67,7 @@ main div.selected:hover {
 }
 
 main div:hover {
-    color: var(--hover-text) !important;
-    background-color: var(--hover) !important;
+    cursor: pointer;
 }
 
 footer nav a {
