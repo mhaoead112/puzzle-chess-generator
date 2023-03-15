@@ -1,1 +1,17 @@
-By jurgenwesterhof (adapted from work of Cburnett) - http://commons.wikimedia.org/wiki/Template:SVG_chess_pieces, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=35634436
+https://commons.wikimedia.org/wiki/Template:SVG_chess_pieces
+
+Cburnett, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons
+
+ - chess_bishop_dark.svg
+ - chess_bishop_light.svg
+ - chess_king_dark.svg
+ - chess_king_light.svg
+ - chess_knight_dark.svg
+ - chess_knight_light.svg
+ - chess_pawn_dark.svg
+ - chess_pawn_light.svg
+ - chess_queen_dark.svg
+ - chess_queen_light.svg
+ - chess_rook_dark.svg
+ - chess_rook_light.svg
+ 
