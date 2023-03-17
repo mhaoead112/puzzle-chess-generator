@@ -24,6 +24,13 @@ body {
     background-color: var(--background);
 }
 
+main { /* Prevent Users from Selecting Text on Page - useful for Mobile "fat finger" */
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Non-prefixed version, currently not supported by any browser */
+}
+
 main {
     background-color: var(--light);
     display: flex;
