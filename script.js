@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const board = document.getElementById('board');
     const squares = board.querySelectorAll('div');
     squares.forEach( square => {
-        square.addEventListener('click', function() {
+        square.addEventListener('pointerdown', function() {
             squareClicked(square)
         });
     });
