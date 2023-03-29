@@ -15,6 +15,10 @@
     padding: 0;
 }
 
+html, body { /* Attempt to disable pinch zooming on Mobile */
+    touch-action: none
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -22,6 +26,13 @@ body {
     justify-content: center;
     align-items: center;
     background-color: var(--background);
+}
+
+main { /* Prevent Users from Selecting Text on Page - useful for Mobile "fat finger" */
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Non-prefixed version, currently not supported by any browser */
 }
 
 main {
@@ -59,16 +70,192 @@ main div.selected:hover {
     color: var(--selected-text) !important;
 }
 
+/* Board & Squares */
+
 #a1, #c1, #e1, #g1, #b2, #d2, #f2, #h2,
 #a3, #c3, #e3, #g3, #b4, #d4, #f4, #h4,
 #a5, #c5, #e5, #g5, #b6, #d6, #f6, #h6,
 #a7, #c7, #e7, #g7, #b8, #d8, #f8, #h8 {
-  background-color: var(--dark);
+    background-color: var(--dark);
 }
 
 main div:hover {
     cursor: pointer;
 }
+
+main div {
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+main div.P {
+    background-image: url(./media/chess_pawn_light.svg);
+}
+
+main div.p {
+    background-image: url(./media/chess_pawn_dark.svg);
+}
+
+main div.R {
+    background-image: url(./media/chess_rook_light.svg);
+}
+
+main div.r {
+    background-image: url(./media/chess_rook_dark.svg);
+}
+
+main div.N {
+    background-image: url(./media/chess_knight_light.svg);
+}
+
+main div.n {
+    background-image: url(./media/chess_knight_dark.svg);
+}
+
+main div.B {
+    background-image: url(./media/chess_bishop_light.svg);
+}
+
+main div.b {
+    background-image: url(./media/chess_bishop_dark.svg);
+}
+
+main div.Q {
+    background-image: url(./media/chess_queen_light.svg);
+}
+
+main div.q {
+    background-image: url(./media/chess_queen_dark.svg);
+}
+
+main div.K {
+    background-image: url(./media/chess_king_light.svg);
+}
+
+main div.k {
+    background-image: url(./media/chess_king_dark.svg);
+}
+
+main#board div {
+    position: relative;
+}
+
+/* Board Labels */
+
+#a1:before,
+#a2:before,
+#a3:before,
+#a4:before,
+#a5:before,
+#a6:before,
+#a7:before,
+#a8:before,
+#a1:after,
+#b1:after,
+#c1:after,
+#d1:after,
+#e1:after,
+#f1:after,
+#g1:after,
+#h1:after {
+    position: absolute;
+    font-size: 0.5em;
+    padding: 0.5em;
+}
+
+#a1:before,
+#a2:before,
+#a3:before,
+#a4:before,
+#a5:before,
+#a6:before,
+#a7:before,
+#a8:before {
+    content: "1";
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#a1:before {
+    content: "1";
+}
+
+#a2:before {
+    content: "2";
+}
+
+#a3:before {
+    content: "3";
+}
+
+#a4:before {
+    content: "4";
+}
+
+#a5:before {
+    content: "5";
+}
+
+#a6:before {
+    content: "6";
+}
+
+#a7:before {
+    content: "7";
+}
+
+#a8:before {
+    content: "8";
+}
+
+#a1:after,
+#b1:after,
+#c1:after,
+#d1:after,
+#e1:after,
+#f1:after,
+#g1:after,
+#h1:after {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#a1:after {
+    content:"a";
+}
+
+#b1:after {
+    content:"b";
+}
+
+#c1:after {
+    content:"c";
+}
+
+#d1:after {
+    content:"d";
+}
+
+#e1:after {
+    content:"e";
+}
+
+#f1:after {
+    content:"f";
+}
+
+#g1:after {
+    content:"g";
+}
+
+#h1:after {
+    content:"h";
+}
+
+/* Footer */
 
 footer nav a {
     text-decoration: none;
@@ -76,4 +263,9 @@ footer nav a {
 
 footer nav a:nth-child(1)::after {
     content: " | ";
+}
+
+footer p.attribution {
+    font-size: 0.7em;
+    padding: 0.5em;
 }
