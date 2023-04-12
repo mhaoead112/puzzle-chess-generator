@@ -3,8 +3,9 @@
     --light: lightsalmon;
     --dark: salmon;
     --background: lightcyan;
-    --selected: rebeccapurple;
+    --selected: rgba(102, 51, 153, 0.70);
     --selected-text: white;
+    --previous: rgba(186, 85, 211, 0.50);
     --hover: black;
     --hover-text: white;
     --corner-radius: 10px;
@@ -67,20 +68,35 @@ main div {
 }
 
 main div.circle span {
-    width: 50%;
-    height: 50%;
+    width: 30%;
+    height: 30%;
     border-radius: 50%;
     background-color: var(--selected);
 }
 
+main div.circle:hover span {
+    width: 100%;
+    height: 100%;
+    border-radius: 0%;
+    background-color: var(--selected);
+}
+
 main div.selected {
-    background-color: var(--selected) !important;
     color: var(--selected-text) !important;
 }
 
-main div.selected:hover {
+main div.selected span {
     background-color: var(--selected) !important;
-    color: var(--selected-text) !important;
+}
+
+main div.previous {
+    color: var(--previous-text) !important;
+}
+
+main div.previous span {
+    background-color: var(--previous) !important;
+    width: 100%;
+    height: 100%;
 }
 
 /* Board & Squares */
@@ -92,19 +108,19 @@ main div.selected:hover {
     background-color: var(--dark);
 }
 
-#a8 {
+#a8, #a8 span {
     border-radius: var(--corner-radius) 0 0 0;
 }
 
-#h8 {
+#h8, #h8 span {
     border-radius: 0 var(--corner-radius) 0 0;
 }
 
-#h1 {
+#h1, #h1 span {
     border-radius: 0 0 var(--corner-radius) 0;
 }
 
-#a1 {
+#a1, #a1 span {
     border-radius: 0 0 0 var(--corner-radius);
 }
 
@@ -112,57 +128,59 @@ main div:hover {
     cursor: pointer;
 }
 
-main div {
+main div span {
     background-size: 90%;
     background-position: center;
     background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
 }
 
-main div.P {
+main div.P span {
     background-image: url(./media/chess_pawn_light.svg);
 }
 
-main div.p {
+main div.p span {
     background-image: url(./media/chess_pawn_dark.svg);
 }
 
-main div.R {
+main div.R span {
     background-image: url(./media/chess_rook_light.svg);
 }
 
-main div.r {
+main div.r span {
     background-image: url(./media/chess_rook_dark.svg);
 }
 
-main div.N {
+main div.N span {
     background-image: url(./media/chess_knight_light.svg);
 }
 
-main div.n {
+main div.n span {
     background-image: url(./media/chess_knight_dark.svg);
 }
 
-main div.B {
+main div.B span {
     background-image: url(./media/chess_bishop_light.svg);
 }
 
-main div.b {
+main div.b span {
     background-image: url(./media/chess_bishop_dark.svg);
 }
 
-main div.Q {
+main div.Q span {
     background-image: url(./media/chess_queen_light.svg);
 }
 
-main div.q {
+main div.q span {
     background-image: url(./media/chess_queen_dark.svg);
 }
 
-main div.K {
+main div.K span {
     background-image: url(./media/chess_king_light.svg);
 }
 
-main div.k {
+main div.k span {
     background-image: url(./media/chess_king_dark.svg);
 }
 
@@ -290,15 +308,10 @@ footer {
     margin: calc(var(--square) / 2);
 }
 
-footer nav a {
-    text-decoration: none;
-}
-
-footer nav a:nth-child(1)::after {
-    content: " | ";
+footer p:first-child {
+    padding-bottom: 0.25em;
 }
 
 footer p.attribution {
     font-size: 0.7em;
-    padding: 0.5em;
 }
