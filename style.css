@@ -65,6 +65,7 @@ main div {
     justify-content: center;
     min-width: var(--square);
     min-height: var(--square);
+    overflow: hidden;
 }
 
 main div.circle span {
@@ -72,6 +73,26 @@ main div.circle span {
     height: 30%;
     border-radius: 50%;
     background-color: var(--selected);
+}
+
+main div.circle.P span,
+main div.circle.p span,
+main div.circle.R span,
+main div.circle.r span,
+main div.circle.N span,
+main div.circle.n span,
+main div.circle.B span,
+main div.circle.b span,
+main div.circle.Q span,
+main div.circle.q span,
+main div.circle.K span,
+main div.circle.k span {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color:transparent;
+    outline: var(--square) solid var(--selected);
+    outline-offset: calc(var(--square) / 16);
 }
 
 main div.circle:hover span {
