@@ -3,6 +3,7 @@
     --light: lightsalmon;
     --dark: salmon;
     --background: lightcyan;
+    --background-overflow: rgba(224,255,255, 0.9); 
     --selected: rgba(102, 51, 153, 0.70);
     --selected-text: white;
     --previous: rgba(186, 85, 211, 0.50);
@@ -24,16 +25,22 @@ html, body { /* Attempt to disable pinch zooming on Mobile */
 html {
     font-size: 150%;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background-overflow);
+    width: 100%;
 }
 
 body {
     display: flex;
+    min-width: calc(var(--square) * 8);
+    max-width: max-content;
     flex-direction: column;
     text-align: center;
     justify-content: center;
     align-items: center;
     background-color: var(--background);
     min-height: 100vh;
+    padding: 0 1em;
+    margin: 0 auto;
 }
 
 /* Header */
