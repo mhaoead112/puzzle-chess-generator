@@ -1,12 +1,15 @@
 :root {
-    --square: 48px;
+    --square: min(64px, calc(100vw / 9));
     --light: lightsalmon;
     --dark: salmon;
     --background: lightcyan;
-    --selected: rebeccapurple;
+    --background-overflow: rgba(224,255,255, 0.9); 
+    --selected: rgba(102, 51, 153, 0.70);
     --selected-text: white;
+    --previous: rgba(186, 85, 211, 0.50);
     --hover: black;
     --hover-text: white;
+    --corner-radius: 10px;
 }
 
 * {
@@ -15,8 +18,11 @@
     padding: 0;
 }
 
-html, body { /* Attempt to disable pinch zooming on Mobile */
-    touch-action: none
+html {
+    font-size: 110%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background-overflow);
+    height: 100%; /* vh but doesn't account for mobile address bar  */
 }
 
 body {
@@ -26,13 +32,15 @@ body {
     justify-content: center;
     align-items: center;
     background-color: var(--background);
+    min-height: 100%; /* vh but doesn't account for mobile address bar  */
+    padding: 0 1em;
+    margin: 0 auto;
 }
 
-main { /* Prevent Users from Selecting Text on Page - useful for Mobile "fat finger" */
-    -webkit-user-select: none; /* Chrome/Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE/Edge */
-    user-select: none; /* Non-prefixed version, currently not supported by any browser */
+/* Header */
+
+header {
+    margin: calc(var(--square) / 2);
 }
 
 main {
@@ -42,7 +50,7 @@ main {
     flex-wrap: wrap;
     height: calc(var(--square) * 8);
     width: calc(var(--square) * 8);
-    margin: calc(var(--square) / 2);
+    border-radius: var(--corner-radius);
 }
 
 main div {
@@ -51,23 +59,59 @@ main div {
     justify-content: center;
     min-width: var(--square);
     min-height: var(--square);
+    overflow: hidden;
 }
 
 main div.circle span {
-    width: 50%;
-    height: 50%;
+    width: 30%;
+    height: 30%;
     border-radius: 50%;
     background-color: var(--selected);
 }
 
+main div.circle.P span,
+main div.circle.p span,
+main div.circle.R span,
+main div.circle.r span,
+main div.circle.N span,
+main div.circle.n span,
+main div.circle.B span,
+main div.circle.b span,
+main div.circle.Q span,
+main div.circle.q span,
+main div.circle.K span,
+main div.circle.k span {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color:transparent;
+    outline: var(--square) solid var(--selected);
+    outline-offset: calc(var(--square) / 16);
+}
+
+main div.circle:hover span {
+    width: 100%;
+    height: 100%;
+    border-radius: 0%;
+    background-color: var(--selected);
+}
+
 main div.selected {
-    background-color: var(--selected) !important;
     color: var(--selected-text) !important;
 }
 
-main div.selected:hover {
+main div.selected span {
     background-color: var(--selected) !important;
-    color: var(--selected-text) !important;
+}
+
+main div.previous {
+    color: var(--previous-text) !important;
+}
+
+main div.previous span {
+    background-color: var(--previous) !important;
+    width: 100%;
+    height: 100%;
 }
 
 /* Board & Squares */
@@ -79,61 +123,79 @@ main div.selected:hover {
     background-color: var(--dark);
 }
 
+#a8, #a8 span {
+    border-radius: var(--corner-radius) 0 0 0;
+}
+
+#h8, #h8 span {
+    border-radius: 0 var(--corner-radius) 0 0;
+}
+
+#h1, #h1 span {
+    border-radius: 0 0 var(--corner-radius) 0;
+}
+
+#a1, #a1 span {
+    border-radius: 0 0 0 var(--corner-radius);
+}
+
 main div:hover {
     cursor: pointer;
 }
 
-main div {
+main div span {
     background-size: 90%;
     background-position: center;
     background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
 }
 
-main div.P {
+main div.P span {
     background-image: url(./media/chess_pawn_light.svg);
 }
 
-main div.p {
+main div.p span {
     background-image: url(./media/chess_pawn_dark.svg);
 }
 
-main div.R {
+main div.R span {
     background-image: url(./media/chess_rook_light.svg);
 }
 
-main div.r {
+main div.r span {
     background-image: url(./media/chess_rook_dark.svg);
 }
 
-main div.N {
+main div.N span {
     background-image: url(./media/chess_knight_light.svg);
 }
 
-main div.n {
+main div.n span {
     background-image: url(./media/chess_knight_dark.svg);
 }
 
-main div.B {
+main div.B span {
     background-image: url(./media/chess_bishop_light.svg);
 }
 
-main div.b {
+main div.b span {
     background-image: url(./media/chess_bishop_dark.svg);
 }
 
-main div.Q {
+main div.Q span {
     background-image: url(./media/chess_queen_light.svg);
 }
 
-main div.q {
+main div.q span {
     background-image: url(./media/chess_queen_dark.svg);
 }
 
-main div.K {
+main div.K span {
     background-image: url(./media/chess_king_light.svg);
 }
 
-main div.k {
+main div.k span {
     background-image: url(./media/chess_king_dark.svg);
 }
 
@@ -160,7 +222,7 @@ main#board div {
 #g1:after,
 #h1:after {
     position: absolute;
-    font-size: 0.5em;
+    font-size: 0.4em;
     padding: 0.5em;
 }
 
@@ -257,15 +319,15 @@ main#board div {
 
 /* Footer */
 
-footer nav a {
-    text-decoration: none;
+footer {
+    margin: calc(var(--square) / 2);
 }
 
-footer nav a:nth-child(1)::after {
-    content: " | ";
+footer p:first-child {
+    padding-bottom: 0.25em;
 }
 
 footer p.attribution {
-    font-size: 0.7em;
-    padding: 0.5em;
+    font-size: 0.6em;
+    line-height: 1.5em;
 }
