@@ -328,5 +328,6 @@ footer p:first-child {
 }
 
 footer p.attribution {
-    font-size: 0.7em;
+    font-size: 0.6em;
+    line-height: 1.5em;
 }
