@@ -1,2 +1,2 @@
-# grid-game
-Basic Game in a Grid
+# Puzzle ♟ Chess
+A basic chess game where you solve puzzles, built with HTML / CSS / JavaScript.
