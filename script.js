@@ -1,3 +1,5 @@
+import validateFEN from './fen-validator/index.js';
+
 window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById("no-js").remove();
 
@@ -24,6 +26,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             square.classList.remove('selected');
         });
     };
+
+    const test = validateFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1'); // true
+    console.log(test);
 });
-
-
