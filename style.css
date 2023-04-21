@@ -7,6 +7,8 @@
     --selected-text: white;
     --hover: black;
     --hover-text: white;
+    --active: darkRed;
+    --active-text: lightCoral;
 }
 
 * {
@@ -256,6 +258,25 @@ main#board div {
 }
 
 /* Footer */
+
+footer button {
+    background-color: var(--selected);
+    color: var(--selected-text);
+    border-radius: 1em;
+    padding: 0.5em 0.75em;
+    margin-bottom: 1em;
+    border: none;
+}
+
+footer button:hover {
+    background-color: var(--hover);
+    color: var(--hover-text);
+}
+
+footer button:active {
+    background-color: var(--active);
+    color: var(--active-text);
+}
 
 footer nav a {
     text-decoration: none;
