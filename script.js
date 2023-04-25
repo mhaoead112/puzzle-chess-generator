@@ -13,6 +13,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     const squareClicked = (square) => {
         console.log(`${square} was clicked!`);
+        // You may be temped to refactor, but why?
+        // unselectAll is catching **edge case** for multiple selected squares
+        // you still need to unselect the selected square, if user wants to undo selection
         if (square.classList.contains('selected')) {
             unselectAll();
         } else {

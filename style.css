@@ -35,14 +35,18 @@ body {
     align-items: center;
     background-color: var(--background);
     min-height: 100%; /* vh but doesn't account for mobile address bar  */
-    padding: 0 1em;
+    padding: 0 0.5em;
     margin: 0 auto;
 }
 
 /* Header */
 
 header {
-    margin: calc(var(--square) / 2);
+    margin: calc(var(--square) / 4);
+}
+
+header p {
+    margin-top: 0.25em;
 }
 
 main {
@@ -322,14 +326,14 @@ main#board div {
 /* Footer */
 
 footer {
-    margin: calc(var(--square) / 2);
+    margin: calc(var(--square) / 4);
 }
 
 footer button {
     background-color: var(--selected);
     color: var(--selected-text);
-    border-radius: 1em;
-    padding: 0.5em 0.75em;
+    border-radius: var(--corner-radius);
+    padding: 0.5em 1.0em;
     margin-bottom: 1em;
     border: none;
 }
