@@ -9,6 +9,8 @@
     --previous: rgba(186, 85, 211, 0.50);
     --hover: black;
     --hover-text: white;
+    --active: darkRed;
+    --active-text: lightCoral;
     --corner-radius: 10px;
 }
 
@@ -33,14 +35,18 @@ body {
     align-items: center;
     background-color: var(--background);
     min-height: 100%; /* vh but doesn't account for mobile address bar  */
-    padding: 0 1em;
+    padding: 0 0.5em;
     margin: 0 auto;
 }
 
 /* Header */
 
 header {
-    margin: calc(var(--square) / 2);
+    margin: calc(var(--square) / 4);
+}
+
+header p {
+    margin-top: 0.25em;
 }
 
 main {
@@ -320,7 +326,26 @@ main#board div {
 /* Footer */
 
 footer {
-    margin: calc(var(--square) / 2);
+    margin: calc(var(--square) / 4);
+}
+
+footer button {
+    background-color: var(--selected);
+    color: var(--selected-text);
+    border-radius: var(--corner-radius);
+    padding: 0.5em 1.0em;
+    margin-bottom: 1em;
+    border: none;
+}
+
+footer button:hover {
+    background-color: var(--hover);
+    color: var(--hover-text);
+}
+
+footer button:active {
+    background-color: var(--active);
+    color: var(--active-text);
 }
 
 footer p:first-child {
