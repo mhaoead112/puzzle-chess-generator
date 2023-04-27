@@ -148,6 +148,19 @@ function loadRandomFen() {
         "rnbqk2r/ppp1nppp/3p4/4p3/2P5/5N2/PP1PPPPP/RNBQKB1R w KQkq - 0 3",
         "rnbqk2r/ppp1nppp/3p4/4p3/2P1P3/5N2/PP1P1PPP/RNBQKB1R b KQkq - 0 3",
         "r1bqkb1r/pp2nppp/2n1p3/1B1p4/4P3/2N2N2/PPPP1PPP/R1BQK2R b KQkq - 3 5",
+        "r1b1k2r/pp2bppp/2n2n2/q1p1p3/3pP3/2PP1N1P/P1QB1PP1/RN3RK1 w kq - 0 11",
+        "r1bqk2r/ppp1bppp/2n5/3p4/2PPn3/2N1PN2/PP3PPP/R1BQKB1R w KQkq - 0 6",
+        "1r1r2k1/2q2pbp/ppp1p1p1/n7/2PP4/1PN2P2/P2Q2PP/2R2RK1 w - - 0 19",
+        "r1bq1rk1/pp3pbp/2np1np1/2p5/2P5/2NPPN2/PP3PPP/R1BQ1RK1 w - - 0 9",
+        "rnbqkbnr/pppp2pp/4p3/5p2/2PP4/5N2/PP2PPPP/RNBQKB1R w KQkq - 0 3",
+        "r3r1k1/1p3ppp/2b1p3/p2n4/2P5/PP3P2/3R2PP/R1B3K1 w - - 0 21",
+        "rnbqk2r/pp2bppp/2p2n2/3p4/2PP4/2N1PN2/PP3PPP/R1BQKB1R w KQkq - 0 7",
+        "r1b2rk1/pp2qppp/2n1p3/3pP3/3P1P2/2N1B3/PP3QPP/R4RK1 w - - 0 16",
+        "r1bqk2r/ppp2ppp/2n5/2b5/4P3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 4",
+        "r1b1k2r/2pp1ppp/p1pb1n2/q7/2PP4/P1N1PN2/1P3PPP/R1BQ1RK1 w kq - 0 11",
+        "r3r1k1/ppp3pp/3bpn2/3p1p2/2PP4/1P3P2/P2N2PP/2BRR1K1 w - - 0 20",
+        "rnbqkb1r/ppp1pppp/5n2/3p4/2P5/5NP1/PP1PPP1P/RNBQKB1R w KQkq - 0 3",
+        "r1b2rk1/pp1n1ppp/2pbpn2/q7/2PP4/P1N1PN2/1P3PPP/R1BQR1K1 w - - 0 14",
     ];
 
     const random_fen = fenPositions[Math.floor(Math.random() * fenPositions.length)]
