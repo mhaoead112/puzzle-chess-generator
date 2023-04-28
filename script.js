@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             unselectAll();
         } else {
             unselectAll();
-            // TODO: only add selected if piece exists
+
             let containsPiece = false;
             for (let i = 0; i < pieces.length; i++) {
                 if (square.classList.contains(pieces[i])) {
@@ -112,7 +112,6 @@ function selectPiece(element) {
 
     const selectedPieceValidMoves = currentStatus.moves[element.id.toUpperCase()];
 
-    // TODO: we should allow user to select a piece that can't move - as long as it's their piece
     if(canSelectPiece) {
         element.classList.add('selected');
 
@@ -166,13 +165,7 @@ function loadRandomFen() {
     const random_fen = fenPositions[Math.floor(Math.random() * fenPositions.length)]
     if (validateFEN(random_fen)) {
         currentFEN = random_fen;
-        console.log('valid FEN:');
-        console.log(currentFEN);
-
         currentStatus = status(currentFEN);
-        console.log('status:');
-        console.log(currentStatus);
-
         loadBoard(random_fen);
     } else {
         console.log('invalid FEN');
