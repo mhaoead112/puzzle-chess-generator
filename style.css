@@ -49,6 +49,10 @@ header p {
     margin-top: 0.25em;
 }
 
+header #no-js {
+    margin: 0.5em;
+}
+
 main {
     background-color: var(--light);
     display: flex;
