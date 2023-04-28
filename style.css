@@ -49,14 +49,21 @@ header p {
     margin-top: 0.25em;
 }
 
+header #no-js {
+    margin: 0.5em;
+}
+
 main {
     background-color: var(--light);
     display: flex;
-    flex-direction: column-reverse;
-    flex-wrap: wrap;
+    flex-flow: column-reverse wrap;
     height: calc(var(--square) * 8);
     width: calc(var(--square) * 8);
     border-radius: var(--corner-radius);
+}
+
+main.flip {
+    flex-flow: column wrap-reverse;
 }
 
 main div {
@@ -129,20 +136,44 @@ main div.previous span {
     background-color: var(--dark);
 }
 
+/* Top left corner */
 #a8, #a8 span {
     border-radius: var(--corner-radius) 0 0 0;
 }
 
+/* Top right corner */
 #h8, #h8 span {
     border-radius: 0 var(--corner-radius) 0 0;
 }
 
+/* Bottom right corner */
 #h1, #h1 span {
     border-radius: 0 0 var(--corner-radius) 0;
 }
 
+/* Bottom left corner */
 #a1, #a1 span {
     border-radius: 0 0 0 var(--corner-radius);
+}
+
+/* Flip - Bottom right corner */
+main.flip #a8, main.flip #a8 span {
+    border-radius: 0 0 var(--corner-radius) 0;
+}
+
+/* Flip - Bottom left corner */
+main.flip #h8, main.flip #h8 span {
+    border-radius: 0 0 0 var(--corner-radius);
+}
+
+/* Flip - Top left corner */
+main.flip #h1, main.flip #h1 span {
+    border-radius: var(--corner-radius) 0 0 0;
+}
+
+/* Flip - Top right corner*/
+main.flip #a1, main.flip #a1 span {
+    border-radius: 0 var(--corner-radius) 0 0;
 }
 
 main div:hover {
@@ -211,115 +242,148 @@ main#board div {
 
 /* Board Labels */
 
-#a1:before,
-#a2:before,
-#a3:before,
-#a4:before,
-#a5:before,
-#a6:before,
-#a7:before,
-#a8:before,
-#a1:after,
-#b1:after,
-#c1:after,
-#d1:after,
-#e1:after,
-#f1:after,
-#g1:after,
-#h1:after {
+main div:before, main div:after {
+    content: "";
     position: absolute;
     font-size: 0.4em;
     padding: 0.5em;
 }
 
-#a1:before,
-#a2:before,
-#a3:before,
-#a4:before,
-#a5:before,
-#a6:before,
-#a7:before,
-#a8:before {
-    content: "1";
-    position: absolute;
+main div:before {
     top: 0;
     left: 0;
 }
 
-#a1:before {
+main:not(.flip) #a1:before {
     content: "1";
 }
 
-#a2:before {
+main:not(.flip) #a2:before {
     content: "2";
 }
 
-#a3:before {
+main:not(.flip) #a3:before {
     content: "3";
 }
 
-#a4:before {
+main:not(.flip) #a4:before {
     content: "4";
 }
 
-#a5:before {
+main:not(.flip) #a5:before {
     content: "5";
 }
 
-#a6:before {
+main:not(.flip) #a6:before {
     content: "6";
 }
 
-#a7:before {
+main:not(.flip) #a7:before {
     content: "7";
 }
 
-#a8:before {
+main:not(.flip) #a8:before {
     content: "8";
 }
 
-#a1:after,
-#b1:after,
-#c1:after,
-#d1:after,
-#e1:after,
-#f1:after,
-#g1:after,
-#h1:after {
-    position: absolute;
+main.flip #h1:before {
+    content: "1";
+}
+
+main.flip #h2:before {
+    content: "2";
+}
+
+main.flip #h3:before {
+    content: "3";
+}
+
+main.flip #h4:before {
+    content: "4";
+}
+
+main.flip #h5:before {
+    content: "5";
+}
+
+main.flip #h6:before {
+    content: "6";
+}
+
+main.flip #h7:before {
+    content: "7";
+}
+
+main.flip #h8:before {
+    content: "8";
+}
+
+main div:after {
     bottom: 0;
     right: 0;
 }
 
-#a1:after {
+main:not(.flip) #a1:after {
     content:"a";
 }
 
-#b1:after {
+main:not(.flip) #b1:after {
     content:"b";
 }
 
-#c1:after {
+main:not(.flip) #c1:after {
     content:"c";
 }
 
-#d1:after {
+main:not(.flip) #d1:after {
     content:"d";
 }
 
-#e1:after {
+main:not(.flip) #e1:after {
     content:"e";
 }
 
-#f1:after {
+main:not(.flip) #f1:after {
     content:"f";
 }
 
-#g1:after {
+main:not(.flip) #g1:after {
     content:"g";
 }
 
-#h1:after {
+main:not(.flip) #h1:after {
+    content:"h";
+}
+
+main.flip #a8:after {
+    content:"a";
+}
+
+main.flip #b8:after {
+    content:"b";
+}
+
+main.flip #c8:after {
+    content:"c";
+}
+
+main.flip #d8:after {
+    content:"d";
+}
+
+main.flip #e8:after {
+    content:"e";
+}
+
+main.flip #f8:after {
+    content:"f";
+}
+
+main.flip #g8:after {
+    content:"g";
+}
+
+main.flip #h8:after {
     content:"h";
 }
 

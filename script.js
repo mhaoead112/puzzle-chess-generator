@@ -1,4 +1,10 @@
 import validateFEN from './fen-validator/index.js';
+import { moves, status }  from './js-chess-engine/lib/js-chess-engine.mjs';
+
+const fenPositions = ['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8', 'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7', 'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6', 'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5', 'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4', 'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3', 'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2', 'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'];
+const pieces = ['r', 'n', 'b', 'q', 'k', 'p', 'R', 'N', 'B', 'Q', 'K', 'P'];
+let currentFEN = '';
+let currentStatus = '';
 
 window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById("no-js").remove();
@@ -20,13 +26,26 @@ window.addEventListener("DOMContentLoaded", (event) => {
             unselectAll();
         } else {
             unselectAll();
-            square.classList.add('selected');
+
+            let containsPiece = false;
+            for (let i = 0; i < pieces.length; i++) {
+                if (square.classList.contains(pieces[i])) {
+                    containsPiece = true;
+                    break
+                }
+            }
+
+            // only add selected if piece exists
+            if (containsPiece) {
+                selectPiece(square);
+            }
         }
     }
 
     const unselectAll = () => {
         squares.forEach(square => {
             square.classList.remove('selected');
+            square.classList.remove('circle');
         });
     };
 
@@ -46,8 +65,6 @@ function clearBoard() {
 }
 
 function loadBoard(fen) {
-    const fenPositions = ['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8', 'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7', 'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6', 'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5', 'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4', 'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3', 'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2', 'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'];
-
     const fenArr = fen.split(' ');
     const piecePlacement = fenArr[0];
 
@@ -68,6 +85,40 @@ function loadBoard(fen) {
         if (newPiecePlacement[i] !== ' ') {
             square.classList.add(newPiecePlacement[i]);
         }
+    }
+
+    const board = document.getElementById('board');
+
+    // flip board if black's turn
+    if(currentStatus.turn === 'black') {
+        board.classList.add('flip');
+    } else {
+        board.classList.remove('flip');
+    }
+}
+
+function selectPiece(element) {
+
+    const selectedPiece = currentStatus.pieces[element.id.toUpperCase()];
+
+    let canSelectPiece = false;
+    if(currentStatus.turn === 'white' && selectedPiece === selectedPiece.toUpperCase()) {
+        // white turn and white piece selected
+        canSelectPiece = true;
+    } else if(currentStatus.turn === 'black' && selectedPiece === selectedPiece.toLowerCase()) {
+        // black turn and black piece selected
+        canSelectPiece = true;
+    }
+
+    const selectedPieceValidMoves = currentStatus.moves[element.id.toUpperCase()];
+
+    if(canSelectPiece) {
+        element.classList.add('selected');
+
+        for (let i = 0; i < selectedPieceValidMoves?.length; i++) {
+            const square = document.getElementById(selectedPieceValidMoves[i].toLowerCase());
+            square.classList.add('circle');
+        }  
     }
 }
 
@@ -96,11 +147,25 @@ function loadRandomFen() {
         "rnbqk2r/ppp1nppp/3p4/4p3/2P5/5N2/PP1PPPPP/RNBQKB1R w KQkq - 0 3",
         "rnbqk2r/ppp1nppp/3p4/4p3/2P1P3/5N2/PP1P1PPP/RNBQKB1R b KQkq - 0 3",
         "r1bqkb1r/pp2nppp/2n1p3/1B1p4/4P3/2N2N2/PPPP1PPP/R1BQK2R b KQkq - 3 5",
+        "r1b1k2r/pp2bppp/2n2n2/q1p1p3/3pP3/2PP1N1P/P1QB1PP1/RN3RK1 w kq - 0 11",
+        "r1bqk2r/ppp1bppp/2n5/3p4/2PPn3/2N1PN2/PP3PPP/R1BQKB1R w KQkq - 0 6",
+        "1r1r2k1/2q2pbp/ppp1p1p1/n7/2PP4/1PN2P2/P2Q2PP/2R2RK1 w - - 0 19",
+        "r1bq1rk1/pp3pbp/2np1np1/2p5/2P5/2NPPN2/PP3PPP/R1BQ1RK1 w - - 0 9",
+        "rnbqkbnr/pppp2pp/4p3/5p2/2PP4/5N2/PP2PPPP/RNBQKB1R w KQkq - 0 3",
+        "r3r1k1/1p3ppp/2b1p3/p2n4/2P5/PP3P2/3R2PP/R1B3K1 w - - 0 21",
+        "rnbqk2r/pp2bppp/2p2n2/3p4/2PP4/2N1PN2/PP3PPP/R1BQKB1R w KQkq - 0 7",
+        "r1b2rk1/pp2qppp/2n1p3/3pP3/3P1P2/2N1B3/PP3QPP/R4RK1 w - - 0 16",
+        "r1bqk2r/ppp2ppp/2n5/2b5/4P3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 4",
+        "r1b1k2r/2pp1ppp/p1pb1n2/q7/2PP4/P1N1PN2/1P3PPP/R1BQ1RK1 w kq - 0 11",
+        "r3r1k1/ppp3pp/3bpn2/3p1p2/2PP4/1P3P2/P2N2PP/2BRR1K1 w - - 0 20",
+        "rnbqkb1r/ppp1pppp/5n2/3p4/2P5/5NP1/PP1PPP1P/RNBQKB1R w KQkq - 0 3",
+        "r1b2rk1/pp1n1ppp/2pbpn2/q7/2PP4/P1N1PN2/1P3PPP/R1BQR1K1 w - - 0 14",
     ];
 
     const random_fen = fenPositions[Math.floor(Math.random() * fenPositions.length)]
     if (validateFEN(random_fen)) {
-        console.log('valid FEN');
+        currentFEN = random_fen;
+        currentStatus = status(currentFEN);
         loadBoard(random_fen);
     } else {
         console.log('invalid FEN');
