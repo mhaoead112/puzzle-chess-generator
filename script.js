@@ -1,5 +1,5 @@
 import validateFEN from './fen-validator/index.js';
-import { moves, status }  from './js-chess-engine/lib/js-chess-engine.mjs';
+import { move, status, getFen }  from './js-chess-engine/lib/js-chess-engine.mjs';
 
 const fenPositions = ['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8', 'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7', 'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6', 'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5', 'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4', 'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3', 'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2', 'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'];
 const pieces = ['r', 'n', 'b', 'q', 'k', 'p', 'R', 'N', 'B', 'Q', 'K', 'P'];
@@ -24,6 +24,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
         // you still need to unselect the selected square, if user wants to undo selection
         if (square.classList.contains('selected')) {
             unselectAll();
+        } else if (square.classList.contains('circle')) {
+            const selected = document.querySelector('.selected');
+            unselectAll();
+            movePiece(selected.id, square.id);
         } else {
             unselectAll();
 
@@ -64,7 +68,7 @@ function clearBoard() {
     });
 }
 
-function loadBoard(fen) {
+function loadBoard(fen, shouldFlip = false) {
     const fenArr = fen.split(' ');
     const piecePlacement = fenArr[0];
 
@@ -89,11 +93,13 @@ function loadBoard(fen) {
 
     const board = document.getElementById('board');
 
-    // flip board if black's turn
-    if(currentStatus.turn === 'black') {
-        board.classList.add('flip');
-    } else {
-        board.classList.remove('flip');
+    // flip board if black's turn and shouldFlip is true
+    if (shouldFlip) {
+        if(currentStatus.turn === 'black') {
+            board.classList.add('flip');
+        } else {
+            board.classList.remove('flip');
+        }
     }
 }
 
@@ -118,8 +124,15 @@ function selectPiece(element) {
         for (let i = 0; i < selectedPieceValidMoves?.length; i++) {
             const square = document.getElementById(selectedPieceValidMoves[i].toLowerCase());
             square.classList.add('circle');
-        }  
+        }
     }
+}
+
+function movePiece(from, to) {
+    console.log(`move ${from} to ${to}`);
+    currentStatus = move(currentStatus, from.toUpperCase(), to.toUpperCase());
+    currentFEN = getFen(currentStatus);
+    loadBoard(currentFEN);
 }
 
 function loadRandomFen() {
@@ -166,7 +179,7 @@ function loadRandomFen() {
     if (validateFEN(random_fen)) {
         currentFEN = random_fen;
         currentStatus = status(currentFEN);
-        loadBoard(random_fen);
+        loadBoard(random_fen, true);
     } else {
         console.log('invalid FEN');
     }
