@@ -137,42 +137,42 @@ main div.previous span {
 }
 
 /* Top left corner */
-#a8, #a8 span {
+#a8 {
     border-radius: var(--corner-radius) 0 0 0;
 }
 
 /* Top right corner */
-#h8, #h8 span {
+#h8 {
     border-radius: 0 var(--corner-radius) 0 0;
 }
 
 /* Bottom right corner */
-#h1, #h1 span {
+#h1 {
     border-radius: 0 0 var(--corner-radius) 0;
 }
 
 /* Bottom left corner */
-#a1, #a1 span {
+#a1 {
     border-radius: 0 0 0 var(--corner-radius);
 }
 
 /* Flip - Bottom right corner */
-main.flip #a8, main.flip #a8 span {
+main.flip #a8 {
     border-radius: 0 0 var(--corner-radius) 0;
 }
 
 /* Flip - Bottom left corner */
-main.flip #h8, main.flip #h8 span {
+main.flip #h8 {
     border-radius: 0 0 0 var(--corner-radius);
 }
 
 /* Flip - Top left corner */
-main.flip #h1, main.flip #h1 span {
+main.flip #h1 {
     border-radius: var(--corner-radius) 0 0 0;
 }
 
 /* Flip - Top right corner*/
-main.flip #a1, main.flip #a1 span {
+main.flip #a1 {
     border-radius: 0 var(--corner-radius) 0 0;
 }
 
