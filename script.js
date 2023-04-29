@@ -180,7 +180,14 @@ function loadRandomFen() {
         currentFEN = random_fen;
         currentStatus = status(currentFEN);
         loadBoard(random_fen, true);
+        updateMessage(`Find the best move for ${currentStatus.turn}.`);
     } else {
         console.log('invalid FEN');
     }
+}
+
+function updateMessage(text, type = '') {
+    const message = document.getElementById('message');
+    message.innerHTML = text;
+    message.classList = type;
 }
