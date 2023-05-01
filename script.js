@@ -3,7 +3,7 @@ import { move, status, getFen }  from './js-chess-engine/lib/js-chess-engine.mjs
 
 const fenPositions = ['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8', 'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7', 'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6', 'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5', 'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4', 'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3', 'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2', 'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'];
 const pieces = ['r', 'n', 'b', 'q', 'k', 'p', 'R', 'N', 'B', 'Q', 'K', 'P'];
-const speed = 200;
+const speed = 300;
 
 let puzzle_solved = false;
 let currentPuzzle = '';
@@ -161,11 +161,11 @@ function playerMove(from, to) {
 function puzzleMoveGood(from, to) {
     movePiece(from, to);
     lastPuzzleMoveIndex++;
-    if(lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
-        updateMessage('✅ Puzzle complete!', 'good');
+    if(currentStatus.isFinished || lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
+        updateMessage('Puzzle complete!', 'good');
         puzzle_solved = true;
     } else {
-        updateMessage('Good move, keep going.', 'good');
+        updateMessage('Good move, keep going.');
         setTimeout(() => {
             
             computerMove(currentPuzzle.moves[lastPuzzleMoveIndex].substring(0, 2), currentPuzzle.moves[lastPuzzleMoveIndex].substring(2, 4));
@@ -178,7 +178,7 @@ function puzzleMoveBad(from, to) {
     const backupPrevious = document.querySelectorAll('.previous');
     console.log(backupPrevious);
     movePiece(from, to);
-    updateMessage('❌ There are better moves, try again.', 'bad');
+    updateMessage('There is a better move, try again.', 'bad');
     setTimeout(() => {
         loadFen(backupStatus);
         backupPrevious.forEach(element => {
@@ -190,6 +190,7 @@ function puzzleMoveBad(from, to) {
 function movePiece(from, to) {
     console.log(`move ${from} to ${to}`);
     currentStatus = move(currentStatus, from.toUpperCase(), to.toUpperCase());
+    console.log(currentStatus);
     currentFEN = getFen(currentStatus);
     loadBoard(currentFEN);
     document.getElementById(from).classList.add('previous');
