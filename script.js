@@ -58,10 +58,6 @@ function setUpBoard() {
             }
         }
     }
-
-    document.getElementById('random-puzzle').addEventListener('click', () => {
-        loadRandomPuzzle();
-    });
 }
 
 function unselectAll() {
@@ -164,6 +160,7 @@ function puzzleMoveGood(from, to) {
     if(currentStatus.isFinished || lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
         updateMessage('Puzzle complete!', 'good');
         puzzle_solved = true;
+        enableNextPuzzle();
     } else {
         updateMessage('Good move, keep going.');
         setTimeout(() => {
@@ -209,10 +206,11 @@ function loadRandomPuzzle() {
         ["6k1/p5p1/1p4rp/3p4/5p2/P1P4r/1P3qP1/3QN1RK w - - 0 37","g2h3 f2g1",496],
         ["6k1/pp3rp1/6P1/8/8/P2R4/1KP5/8 b - - 0 30","f7c7 d3d8",400],
         ["3rr1k1/p3pp1p/1p3QpB/2p5/2P1R3/3q3P/P4PP1/4R1K1 b - - 0 22","e7f6 e4e8 d8e8 e1e8",424]
-      ];
+    ];
 
     const random_puzzle = puzzles[Math.floor(Math.random() * puzzles.length)]
     loadPuzzle(random_puzzle);
+    disableNextPuzzle();
 }
 
 function updateMessage(text, type = '') {
@@ -248,4 +246,16 @@ function loadPuzzle(puzzle) {
     }
     computerMove(currentPuzzle.moves[0].substring(0, 2), currentPuzzle.moves[0].substring(2, 4));
     lastPuzzleMoveIndex = 0;
+}
+
+function enableNextPuzzle() {
+    document.getElementById('message').addEventListener('click', () => {
+        loadRandomPuzzle();
+    });
+}
+
+function disableNextPuzzle() {
+    document.getElementById('message').removeEventListener('click', () => {
+        loadRandomPuzzle();
+    });
 }

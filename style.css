@@ -399,6 +399,7 @@ aside#message {
     border: 1px solid var(--message-neutral-text);
     border-radius: var(--corner-radius);
     margin: calc(var(--square) / 4);
+    margin-bottom: 0;
     padding: 1em;
     width: calc(var(--square) * 8);
     background-color: var(--message-neutral);
@@ -420,25 +421,6 @@ aside#message.bad {
 
 footer {
     margin: calc(var(--square) / 4);
-}
-
-footer button {
-    background-color: var(--selected);
-    color: var(--selected-text);
-    border-radius: var(--corner-radius);
-    padding: 0.5em 1.0em;
-    margin-bottom: 1em;
-    border: none;
-}
-
-footer button:hover {
-    background-color: var(--hover);
-    color: var(--hover-text);
-}
-
-footer button:active {
-    background-color: var(--active);
-    color: var(--active-text);
 }
 
 footer p:first-child {
