@@ -55,10 +55,6 @@ header p {
     margin-top: 0.25em;
 }
 
-header #no-js {
-    margin: 0.5em;
-}
-
 main {
     background-color: var(--light);
     display: flex;
@@ -404,7 +400,14 @@ aside#message {
     width: calc(var(--square) * 8);
     background-color: var(--message-neutral);
     color: var(--message-neutral-text);
-    font-weight: bold;
+    min-height: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+aside#message #no-js {
+    font-size: 0.8em;
 }
 
 aside#message.good {

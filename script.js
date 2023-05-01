@@ -158,11 +158,11 @@ function puzzleMoveGood(from, to) {
     movePiece(from, to);
     lastPuzzleMoveIndex++;
     if(currentStatus.isFinished || lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
-        updateMessage('Puzzle complete!', 'good');
+        updateMessage('<p>Puzzle complete!</p>', 'good');
         puzzle_solved = true;
         enableNextPuzzle();
     } else {
-        updateMessage('Good move, keep going.');
+        updateMessage('<p>Good move, keep going.</p>');
         setTimeout(() => {
             
             computerMove(currentPuzzle.moves[lastPuzzleMoveIndex].substring(0, 2), currentPuzzle.moves[lastPuzzleMoveIndex].substring(2, 4));
@@ -238,10 +238,10 @@ function loadPuzzle(puzzle) {
     };
     loadFen(currentPuzzle.fen); 
     if(currentStatus.turn === 'white') {
-        updateMessage('Find the best move for <u>black</u>.');
+        updateMessage('<p>Find the best move for <u>black</u>.</p>');
         flipBoard(true);
     } else {
-        updateMessage('Find the best move for <u>white</u>.');
+        updateMessage('<p>Find the best move for <u>white</u>.</p>');
         flipBoard(false);
     }
     computerMove(currentPuzzle.moves[0].substring(0, 2), currentPuzzle.moves[0].substring(2, 4));
