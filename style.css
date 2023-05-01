@@ -420,6 +420,11 @@ aside#message.bad {
     color: var(--message-bad-text);
 }
 
+aside#message a {
+    color: var(--message-neutral-text);
+    text-decoration: underline;
+}
+
 /* Footer */
 
 footer {
