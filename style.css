@@ -81,6 +81,16 @@ main div {
     overflow: hidden;
 }
 
+main div.previous {
+    color: var(--previous-text) !important;
+}
+
+main div.previous span {
+    background-color: var(--previous);
+    width: 100%;
+    height: 100%;
+}
+
 main div.circle span {
     width: 30%;
     height: 30%;
@@ -103,7 +113,7 @@ main div.circle.k span {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color:transparent;
+    background-color:transparent !important;
     outline: var(--square) solid var(--selected);
     outline-offset: calc(var(--square) / 16);
 }
@@ -121,16 +131,6 @@ main div.selected {
 
 main div.selected span {
     background-color: var(--selected) !important;
-}
-
-main div.previous {
-    color: var(--previous-text) !important;
-}
-
-main div.previous span {
-    background-color: var(--previous) !important;
-    width: 100%;
-    height: 100%;
 }
 
 /* Board & Squares */
