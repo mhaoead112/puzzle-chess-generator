@@ -3,6 +3,7 @@ import { move, status, getFen }  from './js-chess-engine/lib/js-chess-engine.mjs
 
 const fenPositions = ['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8', 'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7', 'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6', 'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5', 'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4', 'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3', 'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2', 'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'];
 const pieces = ['r', 'n', 'b', 'q', 'k', 'p', 'R', 'N', 'B', 'Q', 'K', 'P'];
+let currentPuzzle = '';
 let currentFEN = '';
 let currentStatus = '';
 
@@ -57,7 +58,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         loadRandomFen();
     });
 
-    loadRandomFen();
+    loadPuzzle();
 });
 
 function clearBoard() {
@@ -176,18 +177,28 @@ function loadRandomFen() {
     ];
 
     const random_fen = fenPositions[Math.floor(Math.random() * fenPositions.length)]
-    if (validateFEN(random_fen)) {
-        currentFEN = random_fen;
-        currentStatus = status(currentFEN);
-        loadBoard(random_fen, true);
-        updateMessage(`Find the best move for ${currentStatus.turn}.`);
-    } else {
-        console.log('invalid FEN');
-    }
+    loadFen(random_fen);
 }
 
 function updateMessage(text, type = '') {
     const message = document.getElementById('message');
     message.innerHTML = text;
     message.classList = type;
+}
+
+function loadFen(fen) {
+    if (validateFEN(fen)) {
+        currentFEN = fen;
+        currentStatus = status(currentFEN);
+        loadBoard(fen, true);
+        updateMessage(`Find the best move for ${currentStatus.turn}.`);
+    } else {
+        console.log('invalid FEN');
+    }
+}
+
+function loadPuzzle() {
+    const puzzle = ["8/R7/3P4/4p1p1/3rPp1k/5P2/5K2/8 b - - 0 46","d4d6 a7h7 d6h6 h7h6","495"];
+    currentPuzzle = puzzle;
+    loadFen(puzzle[0]); 
 }
