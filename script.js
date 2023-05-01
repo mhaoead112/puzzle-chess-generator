@@ -194,7 +194,7 @@ function movePiece(from, to) {
     document.getElementById(to).classList.add('previous');
 }
 
-function loadRandomPuzzle() {
+const loadRandomPuzzle = () => {
     const puzzles = [
         ["8/R7/3P4/4p1p1/3rPp1k/5P2/5K2/8 b - - 0 46","d4d6 a7h7 d6h6 h7h6",495],
         ["8/4p2k/3p2p1/3q3p/7P/2Q1P1P1/5P2/6K1 b - - 1 45","h7h6 c3h8",460],
@@ -238,10 +238,10 @@ function loadPuzzle(puzzle) {
     };
     loadFen(currentPuzzle.fen); 
     if(currentStatus.turn === 'white') {
-        updateMessage('Find the best move for black.');
+        updateMessage('Find the best move for <u>black</u>.');
         flipBoard(true);
     } else {
-        updateMessage('Find the best move for white.');
+        updateMessage('Find the best move for <u>white</u>.');
         flipBoard(false);
     }
     computerMove(currentPuzzle.moves[0].substring(0, 2), currentPuzzle.moves[0].substring(2, 4));
@@ -249,13 +249,10 @@ function loadPuzzle(puzzle) {
 }
 
 function enableNextPuzzle() {
-    document.getElementById('message').addEventListener('click', () => {
-        loadRandomPuzzle();
-    });
+    document.getElementById('message').addEventListener('click', loadRandomPuzzle);
+    document.getElementById('message').classList.add('clickable');
 }
 
 function disableNextPuzzle() {
-    document.getElementById('message').removeEventListener('click', () => {
-        loadRandomPuzzle();
-    });
+    document.getElementById('message').removeEventListener('click', loadRandomPuzzle);
 }

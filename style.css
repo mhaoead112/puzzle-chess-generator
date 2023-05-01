@@ -431,3 +431,7 @@ footer p.attribution {
     font-size: 0.6em;
     line-height: 1.5em;
 }
+
+.clickable:hover {
+    cursor: pointer;
+}
