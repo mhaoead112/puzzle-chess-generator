@@ -13,15 +13,7 @@
 
     <header>
         <h1>Puzzle ♟ Chess</h1>
-        <p>Work in progress. Not functional.</p>
-        <p id="no-js">
-            Oh no! JavaScript is disabled in your browser <i>or</i> you may have a <a
-                href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors" target="_blank">CORS
-                error</a>.<br>
-            If you are trying to run locally, make sure you use some sort of <a
-                href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server"
-                target="_blank">local server</a>.
-        </p>
+        <p>Work in progress.</p>
     </header>
 
     <main id="board">
@@ -98,14 +90,26 @@
         <div id="h8" class="r"><span></span></div>
     </main>
 
+    <aside id="message">
+        <p id="no-js">
+            <strong>Oh no!</strong> Either JavaScript is <a href="https://duckduckgo.com/?q=how+to+enable+javascript" target="_blank">disabled</a>, you have <br>a <a
+                href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors" target="_blank">CORS
+                error</a>, or you aren't running a <a
+                href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server"
+                target="_blank">local server</a>.
+        </p>
+    </aside>
+
     <footer>
-        <button type="button" id="random-fen">Load Random FEN</button>
         <p>Game by <a href="https://fexd.com/" rel="me" target="_blank">Arlin Schaffel</a></p>
         <p class="attribution">Pieces by <a href="https://en.wikipedia.org/wiki/User:Cburnett"
                 target="_blank">Cburnett</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/"
                 target="_blank">CC BY-SA 3.0</a> via <a
                 href="https://commons.wikimedia.org/wiki/Template:SVG_chess_pieces" target="_blank">Wikimedia
                 Commons</a></p>
+        <p class="attribution">Puzzles via <a href="https://database.lichess.org/#puzzles"
+                target="_blank">Lichess Open Database</a>, <a href="https://www.tldrlegal.com/license/creative-commons-cc0-1-0-universal"
+                target="_blank">Creative Commons CC0</a></p>
         <p class="attribution">Uses <a href="https://github.com/jayasurian123/fen-validator"
                 target="_blank">fen-validator</a>, <a href="https://choosealicense.com/licenses/gpl-3.0/"
                 target="_blank">GNU GPL v3.0</a> by <a href="https://github.com/jayasurian123"
