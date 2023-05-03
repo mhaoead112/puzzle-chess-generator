@@ -246,6 +246,8 @@ function loadPuzzle(puzzle) {
     }
     computerMove(currentPuzzle.moves[0].substring(0, 2), currentPuzzle.moves[0].substring(2, 4));
     lastPuzzleMoveIndex = 0;
+
+    updateDebug();
 }
 
 function enableNextPuzzle() {
@@ -255,4 +257,11 @@ function enableNextPuzzle() {
 
 function disableNextPuzzle() {
     document.getElementById('message').removeEventListener('click', loadRandomPuzzle);
+}
+
+function updateDebug() {
+    document.getElementById('debug').innerHTML = `
+    Puzzle: ${currentPuzzle.fen}<br>
+    Rating: ${currentPuzzle.rating}<br>
+    `;
 }
