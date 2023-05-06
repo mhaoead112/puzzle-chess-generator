@@ -1,22 +1,17 @@
 :root {
     --square: min(64px, calc(100vw / 9));
-    --light: lightsalmon;
-    --dark: salmon;
-    --background: lightcyan;
-    --background-overflow: rgba(224,255,255, 0.9); 
-    --selected: rgba(102, 51, 153, 0.70);
+    --light: rgb(239,218,181);
+    --dark: rgb(181,136,99);
+    --background: rgb(236,235,232);
+    --selected: rgba(20,85,30,.5);
     --selected-text: white;
-    --previous: rgba(186, 85, 211, 0.50);
-    --hover: black;
-    --hover-text: white;
-    --active: darkRed;
-    --active-text: lightCoral;
+    --previous: rgba(155,199,0,.41);
     --corner-radius: 10px;
     --message-neutral: rgba(0, 0, 0, 0.5);
     --message-neutral-text: white;
-    --message-good: rgba(0, 255, 0, 0.5);
-    --message-good-text: black;
-    --message-bad: rgba(255, 0, 0, 0.5);
+    --message-good: #629924;
+    --message-good-text: white;
+    --message-bad: #c33;
     --message-bad-text: white;
 }
 
@@ -29,7 +24,7 @@
 html {
     font-size: 110%;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--background-overflow);
+    background-color: var(--background);
     height: 100%; /* vh but doesn't account for mobile address bar  */
 }
 
@@ -39,7 +34,6 @@ body {
     text-align: center;
     justify-content: center;
     align-items: center;
-    background-color: var(--background);
     min-height: 100%; /* vh but doesn't account for mobile address bar  */
     padding: 0 0.5em;
     margin: 0 auto;
@@ -57,6 +51,7 @@ header p {
 
 main {
     background-color: var(--light);
+    color: var(--dark);
     display: flex;
     flex-flow: column-reverse wrap;
     height: calc(var(--square) * 8);
@@ -136,6 +131,7 @@ main div.selected span {
 #a5, #c5, #e5, #g5, #b6, #d6, #f6, #h6,
 #a7, #c7, #e7, #g7, #b8, #d8, #f8, #h8 {
     background-color: var(--dark);
+    color: var(--light);
 }
 
 /* Top left corner */
@@ -247,7 +243,7 @@ main#board div {
 main div:before, main div:after {
     content: "";
     position: absolute;
-    font-size: 0.4em;
+    font-size: 0.6em;
     padding: 0.5em;
 }
 
