@@ -6,11 +6,13 @@ const pieces = ['r', 'n', 'b', 'q', 'k', 'p', 'R', 'N', 'B', 'Q', 'K', 'P'];
 const speed = 300;
 
 let puzzle_solved = false;
+let puzzle_solved_clean = true;
 let currentPuzzle = '';
 let currentFEN = '';
 let currentStatus = '';
 let lastPuzzleMoveIndex = 0;
 let puzzles = {};
+let playerRating = 400;
 
 window.addEventListener("DOMContentLoaded", (event) => {
     setUpBoard();
@@ -169,6 +171,9 @@ function puzzleMoveGood(from, to) {
     if(currentStatus.isFinished || lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
         updateMessage('<p>Puzzle complete!</p>', 'good');
         puzzle_solved = true;
+        if(puzzle_solved_clean) {
+            calculateRatingChange(currentPuzzle.rating, true);  
+        }
         enableNextPuzzle();
     } else {
         updateMessage('<p>Good move, keep going.</p>');
@@ -185,6 +190,8 @@ function puzzleMoveBad(from, to) {
     console.log(backupPrevious);
     movePiece(from, to);
     updateMessage('There is a better move, try again.', 'bad');
+    puzzle_solved_clean = false;
+    calculateRatingChange(currentPuzzle.rating, false);
     setTimeout(() => {
         loadFen(backupStatus);
         backupPrevious.forEach(element => {
@@ -204,11 +211,22 @@ function movePiece(from, to) {
 }
 
 const loadRandomPuzzle = () => {
-    const ratings = Object.keys(puzzles);
-    const randomRating = ratings[Math.floor(Math.random() * ratings.length)];
+    const minRating = Math.max(0, playerRating - 100);
+    const maxRating = playerRating + 100;
+
+    const eligibleRatings = Object.keys(puzzles).filter(rating => rating >= minRating && rating <= maxRating);
+
+    if (eligibleRatings.length === 0) {
+        console.error('No puzzles found within the specified rating range.');
+        return;
+    }
+
+    const randomRating = eligibleRatings[Math.floor(Math.random() * eligibleRatings.length)];
     const randomPuzzle = puzzles[randomRating][Math.floor(Math.random() * puzzles[randomRating].length)];
 
     loadPuzzle(randomPuzzle);
+    puzzle_solved_clean = true;
+
     disableNextPuzzle();
 }
 
@@ -258,6 +276,7 @@ function updateDebug() {
     document.getElementById('debug').innerHTML = `
     Puzzle: ${currentPuzzle.fen}<br>
     Rating: ${currentPuzzle.rating}<br>
+    Player: ${playerRating}<br>
     `;
 }
 
@@ -280,3 +299,13 @@ function initPuzzles(csvString) {
 
     return puzzles;
 }
+
+function calculateRatingChange(puzzleRating, solved) {
+    const kFactor = 32; // K-factor determines the maximum rating change per game
+    const playerWinProbability = 1 / (1 + Math.pow(10, (puzzleRating - playerRating) / 400));
+
+    const ratingChange = Math.round(kFactor * (solved ? 1 - playerWinProbability : 0 - playerWinProbability));
+
+    playerRating += ratingChange;
+}
+  
