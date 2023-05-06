@@ -108,6 +108,39 @@ for file, writer in writers.values():
 
 ```
 
+## Generating puzzles.csv
+
+For Offline play it makes more sense for now to just include the most popular puzzles. Below is a script that will go through all of the puzzles in the lichess .csv and output `puzzles.csv` that includes the 10 most popular puzzles from each rating:
+
+```python
+input_file = 'lichess_db_puzzle.csv'
+output_file = 'puzzles.csv'
+
+# Read CSV file and store the puzzles in a dictionary grouped by rating
+puzzles_by_rating = {}
+with open(input_file, 'r') as csvfile:
+    for line in csvfile:
+        row = line.strip().split(',')
+        puzzle_id, fen, moves, rating, popularity = row[0], row[1], row[2], int(row[3]), int(row[5])
+        puzzle = {'puzzle_id': puzzle_id, 'fen': fen, 'moves': moves, 'rating': rating, 'popularity': popularity}
+
+        if rating not in puzzles_by_rating:
+            puzzles_by_rating[rating] = []
+
+        puzzles_by_rating[rating].append(puzzle)
+
+# Select the top 10 most popular puzzles for each rating
+selected_puzzles = []
+for rating, puzzles in puzzles_by_rating.items():
+    top_puzzles = sorted(puzzles, key=lambda p: p['popularity'], reverse=True)[:10]
+    selected_puzzles.extend(top_puzzles)
+
+# Write the selected puzzles to the output CSV file
+with open(output_file, 'w') as csvfile:
+    for puzzle in selected_puzzles:
+        csvfile.write(','.join([puzzle['puzzle_id'], puzzle['fen'], puzzle['moves'], str(puzzle['rating'])]) + '\n')
+```
+
 ## Future
 
 There are many other ways to optimize these files, but this is a quick and simple way to get it done. If file size becomes an issue, some form of compression would really improve things.
