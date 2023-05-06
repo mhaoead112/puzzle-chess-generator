@@ -7,9 +7,11 @@ The puzzles in this directory were downloaded from the [Lichess Open Database](h
 Online files contain puzzle id and rating only. The IDs are used to query the [Lichess API](https://lichess.org/api#tag/Puzzles/operation/apiPuzzleId). Deciding which ID to fetch is based on the player's current rating.
 
 ### Example Query
+
 `https://lichess.org/api/puzzle/K69di`
 
 ### Example Response
+
 ```json
 {
   "game": {
