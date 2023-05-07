@@ -16,6 +16,7 @@ let playerRating = 400;
 
 window.addEventListener("DOMContentLoaded", (event) => {
     setUpBoard();
+    playerRating = getLocalPlayerRating();
     fetch('./puzzles/offline/puzzles.csv')
         .then(response => response.text())
         .then(csvString => {
@@ -211,8 +212,11 @@ function movePiece(from, to) {
 }
 
 const loadRandomPuzzle = () => {
-    const minRating = Math.max(0, playerRating - 100);
-    const maxRating = playerRating + 100;
+    const minRating = Math.max(0, getLocalPlayerRating() - 100);
+    const maxRating = getLocalPlayerRating() + 100;
+
+    console.log(minRating);
+    console.log(maxRating); 
 
     const eligibleRatings = Object.keys(puzzles).filter(rating => rating >= minRating && rating <= maxRating);
 
@@ -276,7 +280,7 @@ function updateDebug() {
     document.getElementById('debug').innerHTML = `
     Puzzle: ${currentPuzzle.fen}<br>
     Rating: ${currentPuzzle.rating}<br>
-    Player: ${playerRating}<br>
+    Player: ${getLocalPlayerRating()}<br>
     `;
 }
 
@@ -302,10 +306,30 @@ function initPuzzles(csvString) {
 
 function calculateRatingChange(puzzleRating, solved) {
     const kFactor = 32; // K-factor determines the maximum rating change per game
-    const playerWinProbability = 1 / (1 + Math.pow(10, (puzzleRating - playerRating) / 400));
+    const playerWinProbability = 1 / (1 + Math.pow(10, (puzzleRating - getLocalPlayerRating()) / 400));
 
     const ratingChange = Math.round(kFactor * (solved ? 1 - playerWinProbability : 0 - playerWinProbability));
 
-    playerRating += ratingChange;
+    storeLocalPlayerRating(getLocalPlayerRating() + ratingChange);
 }
-  
+
+// Store the player's rating in localStorage, if available
+function storeLocalPlayerRating(rating) {
+    try {
+        localStorage.setItem("puzzleChessplayerRating", rating);
+    } catch (error) {
+        console.error("Error storing player rating:", error);
+    }
+    playerRating = rating;
+}
+
+// Retrieve the player's rating from localStorage, if available
+function getLocalPlayerRating() {
+    try {
+        const rating = localStorage.getItem("puzzleChessplayerRating");
+        return rating ? parseInt(rating, 10) : 400;
+    } catch (error) {
+        console.error("Error retrieving player rating:", error);
+        return playerRating;
+    }
+}
