@@ -170,7 +170,7 @@ function puzzleMoveGood(from, to) {
     movePiece(from, to);
     lastPuzzleMoveIndex++;
     if(currentStatus.isFinished || lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
-        updateMessage('<p>Puzzle complete!</p>', 'good');
+        updateMessage('<p>Puzzle complete!</p><p class="show">Click for next puzzle.</p>', 'good');
         puzzle_solved = true;
         if(puzzle_solved_clean) {
             calculateRatingChange(currentPuzzle.rating, true);  
@@ -278,8 +278,7 @@ function disableNextPuzzle() {
 
 function updateDebug() {
     document.getElementById('debug').innerHTML = `
-    Puzzle: ${currentPuzzle.fen}<br>
-    Rating: ${currentPuzzle.rating}<br>
+    Puzzle: ${currentPuzzle.rating}<br>
     Player: ${getLocalPlayerRating()}<br>
     `;
 }
