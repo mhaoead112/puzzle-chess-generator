@@ -6,14 +6,26 @@ const pieces = ['r', 'n', 'b', 'q', 'k', 'p', 'R', 'N', 'B', 'Q', 'K', 'P'];
 const speed = 300;
 
 let puzzle_solved = false;
+let puzzle_solved_clean = true;
 let currentPuzzle = '';
 let currentFEN = '';
 let currentStatus = '';
 let lastPuzzleMoveIndex = 0;
+let puzzles = {};
+let playerRating = 400;
 
 window.addEventListener("DOMContentLoaded", (event) => {
     setUpBoard();
-    loadRandomPuzzle();
+    playerRating = getLocalPlayerRating();
+    fetch('./puzzles/offline/puzzles.csv')
+        .then(response => response.text())
+        .then(csvString => {
+            puzzles = initPuzzles(csvString);
+            loadRandomPuzzle();   
+        })
+        .catch(error => {
+            console.error('Error fetching puzzles:', error);
+        });
 });
 
 function setUpBoard() {
@@ -158,8 +170,11 @@ function puzzleMoveGood(from, to) {
     movePiece(from, to);
     lastPuzzleMoveIndex++;
     if(currentStatus.isFinished || lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
-        updateMessage('<p>Puzzle complete!</p>', 'good');
+        updateMessage('<p>Puzzle complete!</p><p class="show">Click for next puzzle.</p>', 'good');
         puzzle_solved = true;
+        if(puzzle_solved_clean) {
+            calculateRatingChange(currentPuzzle.rating, true);  
+        }
         enableNextPuzzle();
     } else {
         updateMessage('<p>Good move, keep going.</p>');
@@ -176,6 +191,8 @@ function puzzleMoveBad(from, to) {
     console.log(backupPrevious);
     movePiece(from, to);
     updateMessage('There is a better move, try again.', 'bad');
+    puzzle_solved_clean = false;
+    calculateRatingChange(currentPuzzle.rating, false);
     setTimeout(() => {
         loadFen(backupStatus);
         backupPrevious.forEach(element => {
@@ -195,21 +212,25 @@ function movePiece(from, to) {
 }
 
 const loadRandomPuzzle = () => {
-    const puzzles = [
-        ["8/R7/3P4/4p1p1/3rPp1k/5P2/5K2/8 b - - 0 46","d4d6 a7h7 d6h6 h7h6",495],
-        ["8/4p2k/3p2p1/3q3p/7P/2Q1P1P1/5P2/6K1 b - - 1 45","h7h6 c3h8",460],
-        ["3r4/pB3R2/1p2p3/8/kP4b1/2P1B3/P4P2/4K3 w - - 1 29","b7e4 d8d1",415],
-        ["4rk2/ppp1rp1p/6p1/5Q2/3p4/P2P2R1/KPP5/6R1 b - - 0 25","g6f5 g3g8",406],
-        ["6k1/1N3ppp/p1p2n2/4p3/1r6/4P1P1/5P1P/3R2K1 b - - 0 29","b4b7 d1d8 f6e8 d8e8",400],
-        ["1r4k1/5p1p/1R3Pp1/1p6/8/7P/6P1/3R2K1 b - - 0 31","b8b6 d1d8",400],
-        ["8/R7/5p2/P5p1/4r3/4r1k1/6P1/3R2K1 w - - 16 42","a7f7 e3e1 d1e1 e4e1",464],
-        ["6k1/p5p1/1p4rp/3p4/5p2/P1P4r/1P3qP1/3QN1RK w - - 0 37","g2h3 f2g1",496],
-        ["6k1/pp3rp1/6P1/8/8/P2R4/1KP5/8 b - - 0 30","f7c7 d3d8",400],
-        ["3rr1k1/p3pp1p/1p3QpB/2p5/2P1R3/3q3P/P4PP1/4R1K1 b - - 0 22","e7f6 e4e8 d8e8 e1e8",424]
-    ];
+    const minRating = Math.max(0, getLocalPlayerRating() - 100);
+    const maxRating = getLocalPlayerRating() + 100;
 
-    const random_puzzle = puzzles[Math.floor(Math.random() * puzzles.length)]
-    loadPuzzle(random_puzzle);
+    console.log(minRating);
+    console.log(maxRating); 
+
+    const eligibleRatings = Object.keys(puzzles).filter(rating => rating >= minRating && rating <= maxRating);
+
+    if (eligibleRatings.length === 0) {
+        console.error('No puzzles found within the specified rating range.');
+        return;
+    }
+
+    const randomRating = eligibleRatings[Math.floor(Math.random() * eligibleRatings.length)];
+    const randomPuzzle = puzzles[randomRating][Math.floor(Math.random() * puzzles[randomRating].length)];
+
+    loadPuzzle(randomPuzzle);
+    puzzle_solved_clean = true;
+
     disableNextPuzzle();
 }
 
@@ -231,11 +252,7 @@ function loadFen(fen) {
 
 function loadPuzzle(puzzle) {
     puzzle_solved = false;
-    currentPuzzle = {
-        "fen": puzzle[0],
-        "moves": puzzle[1].split(' '),
-        "rating": puzzle[2],
-    };
+    currentPuzzle = puzzle;
     loadFen(currentPuzzle.fen); 
     if(currentStatus.turn === 'white') {
         updateMessage('<p>Find the best move for <u>black</u>.</p>');
@@ -246,6 +263,8 @@ function loadPuzzle(puzzle) {
     }
     computerMove(currentPuzzle.moves[0].substring(0, 2), currentPuzzle.moves[0].substring(2, 4));
     lastPuzzleMoveIndex = 0;
+
+    updateDebug();
 }
 
 function enableNextPuzzle() {
@@ -255,4 +274,62 @@ function enableNextPuzzle() {
 
 function disableNextPuzzle() {
     document.getElementById('message').removeEventListener('click', loadRandomPuzzle);
+}
+
+function updateDebug() {
+    document.getElementById('debug').innerHTML = `
+    Puzzle: <a href="https://lichess.org/training/${currentPuzzle.puzzle_id}">${currentPuzzle.puzzle_id}</a><br>
+    Rating: ${currentPuzzle.rating}<br>
+    Player: ${getLocalPlayerRating()}<br>
+    `;
+}
+
+function initPuzzles(csvString) {
+    const lines = csvString.split('\n');
+    const puzzles = {};
+
+    lines.forEach(line => {
+        if (line.trim() !== '') {
+        const [puzzle_id, fen, moves, rating] = line.split(',');
+        const puzzle = { puzzle_id, fen, moves: moves.split(' '), rating };
+
+        if (!puzzles[rating]) {
+            puzzles[rating] = [];
+        }
+
+        puzzles[rating].push(puzzle);
+        }
+    });
+
+    return puzzles;
+}
+
+function calculateRatingChange(puzzleRating, solved) {
+    const kFactor = 32; // K-factor determines the maximum rating change per game
+    const playerWinProbability = 1 / (1 + Math.pow(10, (puzzleRating - getLocalPlayerRating()) / 400));
+
+    const ratingChange = Math.round(kFactor * (solved ? 1 - playerWinProbability : 0 - playerWinProbability));
+
+    storeLocalPlayerRating(getLocalPlayerRating() + ratingChange);
+}
+
+// Store the player's rating in localStorage, if available
+function storeLocalPlayerRating(rating) {
+    try {
+        localStorage.setItem("puzzleChessplayerRating", rating);
+    } catch (error) {
+        console.error("Error storing player rating:", error);
+    }
+    playerRating = rating;
+}
+
+// Retrieve the player's rating from localStorage, if available
+function getLocalPlayerRating() {
+    try {
+        const rating = localStorage.getItem("puzzleChessplayerRating");
+        return rating ? parseInt(rating, 10) : 400;
+    } catch (error) {
+        console.error("Error retrieving player rating:", error);
+        return playerRating;
+    }
 }

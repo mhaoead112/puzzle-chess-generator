@@ -398,6 +398,7 @@ aside#message {
     color: var(--message-neutral-text);
     min-height: 4em;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: all 0.5s;
@@ -424,6 +425,10 @@ aside#message a {
     text-decoration: underline;
 }
 
+aside#message p:nth-child(2) {
+    font-size: 0.7em;
+}
+
 /* Footer */
 
 footer {
@@ -441,4 +446,13 @@ footer p.attribution {
 
 .clickable:hover {
     cursor: pointer;
+}
+
+aside#debug {
+    position:absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5em;
+    font-size: 0.6em;
+    text-align: left;
 }
