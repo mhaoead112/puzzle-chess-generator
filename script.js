@@ -278,9 +278,9 @@ function disableNextPuzzle() {
 
 function updateDebug() {
     document.getElementById('debug').innerHTML = `
-    Puzzle: <a href="https://lichess.org/training/${currentPuzzle.puzzle_id}">${currentPuzzle.puzzle_id}</a><br>
-    Rating: ${currentPuzzle.rating}<br>
-    Player: ${getLocalPlayerRating()}<br>
+    Puzzle: <a href="https://lichess.org/training/${currentPuzzle.puzzle_id}">${currentPuzzle.puzzle_id}</a> - 
+    Rating: ${currentPuzzle.rating} - 
+    Player: ${getLocalPlayerRating()} 
     `;
 }
 

@@ -468,7 +468,6 @@ footer p.attribution {
 aside#debug {
     position:absolute;
     top: 0;
-    left: 0;
     padding: 0.5em;
     font-size: 0.6em;
     text-align: left;
