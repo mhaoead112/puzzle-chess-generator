@@ -113,7 +113,8 @@ main div.circle:hover span {
     width: 100%;
     height: 100%;
     border-radius: 0%;
-    background-color: var(--selected);
+    background-color: var(--selected) !important;
+    cursor: pointer;
 }
 
 main div.selected {
@@ -122,6 +123,24 @@ main div.selected {
 
 main div.selected span {
     background-color: var(--selected) !important;
+}
+
+main div.P:hover,
+main div.R:hover,
+main div.N:hover,
+main div.B:hover,
+main div.Q:hover,
+main div.K:hover {
+    cursor: pointer;
+}
+
+main.flip div.p:hover,
+main.flip div.r:hover,
+main.flip div.n:hover,
+main.flip div.b:hover,
+main.flip div.q:hover,
+main.flip div.k:hover {
+    cursor: pointer;
 }
 
 /* Board & Squares */
@@ -172,10 +191,6 @@ main.flip #h1 {
 /* Flip - Top right corner*/
 main.flip #a1 {
     border-radius: 0 var(--corner-radius) 0 0;
-}
-
-main div:hover {
-    cursor: pointer;
 }
 
 main div span {
@@ -392,7 +407,6 @@ aside#message {
     border-radius: var(--corner-radius);
     margin: calc(var(--square) / 4);
     margin-bottom: 0;
-    padding: 1em;
     width: calc(var(--square) * 8);
     background-color: var(--message-neutral);
     color: var(--message-neutral-text);
