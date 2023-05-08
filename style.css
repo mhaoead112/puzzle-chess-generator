@@ -472,3 +472,29 @@ aside#debug {
     font-size: 0.6em;
     text-align: left;
 }
+
+aside#info svg, aside#settings svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--message-neutral);
+}
+
+aside#info, aside#settings {
+    position: absolute;
+    top: 0;
+    padding: 0.5em;
+    width: 48px;
+    height: 48px;
+}
+
+aside#info {
+    left: 0;
+}
+
+aside#settings {
+    right: 0;
+}
+
+aside#info:hover, aside#settings:hover {
+    cursor: pointer;
+}
