@@ -16,6 +16,7 @@ let playerRating = 400;
 
 window.addEventListener("DOMContentLoaded", (event) => {
     setUpBoard();
+    setUpButtons();
     playerRating = getLocalPlayerRating();
     fetch('./puzzles/offline/puzzles.csv')
         .then(response => response.text())
@@ -70,6 +71,26 @@ function setUpBoard() {
             }
         }
     }
+}
+
+function setUpButtons() {
+    const infoButton = document.getElementById('info-button');
+    const settingsButton = document.getElementById('settings-button');
+    const closeButtons = document.querySelectorAll('.close-button');
+
+    infoButton.addEventListener('pointerdown', function () {
+        document.getElementById('info-modal').style.display = 'flex';
+    });
+
+    settingsButton.addEventListener('pointerdown', function () {
+        document.getElementById('info-modal').style.display = 'flex';
+    });
+
+    closeButtons.forEach(closeButton => {
+        closeButton.addEventListener('pointerdown', function () {
+            this.parentNode.parentNode.style.display = 'none';
+        });
+    });
 }
 
 function unselectAll() {
