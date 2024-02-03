@@ -78,6 +78,11 @@ function setUpButtons() {
     const menuButton = document.getElementById('menu-button');
     const closeButtons = document.querySelectorAll('.close-button');
 
+    title.addEventListener('pointerdown', function () {
+        let element = document.getElementById('debug'); 
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';
+    });
+
     menuButton.addEventListener('pointerdown', function () {
         document.getElementById('info-modal').style.display = 'flex';
     });
