@@ -1,5 +1,5 @@
 :root {
-    --square: min(64px, calc(100vw / 9));
+    --square: min(64px, calc(100vw / 8));
     --light: rgb(239,218,181);
     --dark: rgb(181,136,99);
     --background: rgb(236,235,232);
@@ -32,22 +32,63 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     min-height: 100%; /* vh but doesn't account for mobile address bar  */
-    padding: 0 0.5em;
     margin: 0 auto;
 }
 
 /* Header */
 
 header {
-    margin: calc(var(--square) / 4);
+    /* padding: calc(var(--square) / 4) 0; */
+    width: 100%;
+    border-bottom: 1px solid var(--message-neutral);
+    display: grid;
+    grid-template-columns: 48px 1fr 48px;
+    align-items: center;
 }
 
-header p {
-    margin-top: 0.25em;
+@media screen and (max-width: 400px) {
+    header {
+        grid-template-columns: 48px 1fr;
+    }
+    
+    header h1 {
+        font-size: 1.75em;
+    }
 }
+
+#menu-button svg, .close-button svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--message-neutral);
+    margin-bottom: -0.6em;
+}
+
+#menu-button span, .close-button span {
+    font-size: 0.8em;
+    color: var(--message-neutral);
+}
+
+#menu-button, .close-button {
+    padding: 0.5em;
+    width: 48px;
+    border: none;
+    border-radius: var(--corner-radius);
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#menu-button:hover, .close-button:hover {
+    cursor: pointer;
+}
+
+/* Main */
 
 main {
     background-color: var(--light);
@@ -403,13 +444,16 @@ main.flip #h8:after {
     content:"h";
 }
 
+/* Footer */
+footer {
+    
+}
+
 /* Message */
 
-aside#message {
+#message {
     border: 2px solid var(--message-neutral-text);
     border-radius: var(--corner-radius);
-    margin: calc(var(--square) / 4);
-    margin-bottom: 0;
     width: calc(var(--square) * 8);
     background-color: var(--message-neutral);
     color: var(--message-neutral-text);
@@ -421,28 +465,28 @@ aside#message {
     transition: all 0.5s;
 }
 
-aside#message #no-js {
+#message #no-js {
     font-size: 0.8em;
 }
 
-aside#message.good {
+#message.good {
     border-color: var(--message-good-text);
     background-color: var(--message-good);
     color: var(--message-good-text);
 }
 
-aside#message.bad {
+#message.bad {
     border-color: var(--message-bad-text);
     background-color: var(--message-bad);
     color: var(--message-bad-text);
 }
 
-aside#message a {
+#message a {
     color: var(--message-neutral-text);
     text-decoration: underline;
 }
 
-aside#message p:nth-child(2) {
+#message p:nth-child(2) {
     font-size: 0.7em;
 }
 
@@ -452,44 +496,10 @@ aside#message p:nth-child(2) {
 
 aside#debug {
     position:absolute;
-    top: 0;
+    top: 70px;
     padding: 0.5em;
     font-size: 0.6em;
     text-align: left;
-}
-
-#info-button svg, #settings-button svg, .close-button svg {
-    width: 100%;
-    height: 100%;
-    fill: var(--message-neutral);
-    margin-bottom: -0.6em;
-}
-
-#info-button span, #settings-button span, .close-button span {
-    font-size: 0.8em;
-    color: var(--message-neutral);
-}
-
-#info-button, #settings-button, .close-button {
-    position: absolute;
-    top: 0;
-    padding: 0.5em;
-    width: 48px;
-    height: 48px;
-    border: none;
-    border-radius: var(--corner-radius);
-}
-
-#info-button {
-    left: 0;
-}
-
-#settings-button, .close-button {
-    right: 0;
-}
-
-#info-button:hover, #settings-button:hover, .close-button:hover {
-    cursor: pointer;
 }
 
 div#info-modal  {

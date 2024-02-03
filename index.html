@@ -12,8 +12,12 @@
 <body>
 
     <header>
-        <h1>Puzzle ♟ Chess</h1>
-        <p>Work in progress.</p>
+        <button id="menu-button">
+            <!-- menu icon c/o Google Fonts / Material Symbols: https://fonts.google.com/ -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+            <span>menu</span>
+        </button>
+        <h1 id="title">Puzzle ♟ Chess</h1>
     </header>
 
     <main id="board">
@@ -90,7 +94,7 @@
         <div id="h8" class="r"><span></span></div>
     </main>
 
-    <aside id="message">
+    <footer id="message">
         <p id="no-js">
             <strong>Oh no!</strong> Either JavaScript is <a href="https://duckduckgo.com/?q=how+to+enable+javascript" target="_blank">disabled</a>, you have <br>a <a
                 href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors" target="_blank">CORS
@@ -98,23 +102,10 @@
                 href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server"
                 target="_blank">local server</a>.
         </p>
-    </aside>
-
-    <footer>
-
     </footer>
 
     <aside id="debug"></aside>
-    <button id="info-button">
-        <!-- info icon c/o Google Fonts / Material Symbols: https://fonts.google.com/ -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d="M453 776h60V536h-60v240Zm26.982-314q14.018 0 23.518-9.2T513 430q0-14.45-9.482-24.225-9.483-9.775-23.5-9.775-14.018 0-23.518 9.775T447 430q0 13.6 9.482 22.8 9.483 9.2 23.5 9.2Zm.284 514q-82.734 0-155.5-31.5t-127.266-86q-54.5-54.5-86-127.341Q80 658.319 80 575.5q0-82.819 31.5-155.659Q143 347 197.5 293t127.341-85.5Q397.681 176 480.5 176q82.819 0 155.659 31.5Q709 239 763 293t85.5 127Q880 493 880 575.734q0 82.734-31.5 155.5T763 858.316q-54 54.316-127 86Q563 976 480.266 976Z"/></svg>
-        <span>info</span>
-    </button>
-    <button id="settings-button">
-        <!-- settings icon c/o Google Fonts / Material Symbols: https://fonts.google.com/ -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d="m388 976-20-126q-19-7-40-19t-37-25l-118 54-93-164 108-79q-2-9-2.5-20.5T185 576q0-9 .5-20.5T188 535L80 456l93-164 118 54q16-13 37-25t40-18l20-127h184l20 126q19 7 40.5 18.5T669 346l118-54 93 164-108 77q2 10 2.5 21.5t.5 21.5q0 10-.5 21t-2.5 21l108 78-93 164-118-54q-16 13-36.5 25.5T592 850l-20 126H388Zm92-270q54 0 92-38t38-92q0-54-38-92t-92-38q-54 0-92 38t-38 92q0 54 38 92t92 38Z"/></svg>
-        <span>settings</span>
-    </button>
+
     <div id="info-modal" style="display:none;">
         <div>
             <button class="close-button">

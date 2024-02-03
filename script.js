@@ -74,15 +74,15 @@ function setUpBoard() {
 }
 
 function setUpButtons() {
-    const infoButton = document.getElementById('info-button');
-    const settingsButton = document.getElementById('settings-button');
+    const title = document.getElementById('title');
+    const menuButton = document.getElementById('menu-button');
     const closeButtons = document.querySelectorAll('.close-button');
 
-    infoButton.addEventListener('pointerdown', function () {
+    menuButton.addEventListener('pointerdown', function () {
         document.getElementById('info-modal').style.display = 'flex';
     });
 
-    settingsButton.addEventListener('pointerdown', function () {
+    menuButton.addEventListener('pointerdown', function () {
         document.getElementById('info-modal').style.display = 'flex';
     });
 
@@ -299,9 +299,10 @@ function disableNextPuzzle() {
 
 function updateDebug() {
     document.getElementById('debug').innerHTML = `
-    Puzzle: <a href="https://lichess.org/training/${currentPuzzle.puzzle_id}">${currentPuzzle.puzzle_id}</a> - 
-    Rating: ${currentPuzzle.rating} - 
-    Player: ${getLocalPlayerRating()} 
+    <strong>DEBUG INFO</strong>: 
+    Puzzle ID: <a href="https://lichess.org/training/${currentPuzzle.puzzle_id}">${currentPuzzle.puzzle_id}</a> - 
+    Puzzle Rating: ${currentPuzzle.rating} - 
+    Player Rating: ${getLocalPlayerRating()} 
     `;
 }
 
