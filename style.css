@@ -489,6 +489,15 @@ footer {
 #message p:nth-child(2) {
     font-size: 0.7em;
 }
+/* @media screen and (max-width: calc(var(--square) * 8)) { */
+
+@media screen and (max-width: calc(64px * 8)) {
+    #message {
+        border: none;
+        border-radius: 0;
+    }
+}
+
 
 .clickable:hover {
     cursor: pointer;
