@@ -297,6 +297,15 @@ main#board div {
     position: relative;
 }
 
+@media screen and (max-width: calc(64px * 8)) {
+    main#board div {
+        border-radius: 0;
+    }
+    main#board.flip div {
+        border-radius: 0;
+    }
+}
+
 /* Board Labels */
 
 main div:before, main div:after {
@@ -489,7 +498,6 @@ footer {
 #message p:nth-child(2) {
     font-size: 0.7em;
 }
-/* @media screen and (max-width: calc(var(--square) * 8)) { */
 
 @media screen and (max-width: calc(64px * 8)) {
     #message {
@@ -497,7 +505,6 @@ footer {
         border-radius: 0;
     }
 }
-
 
 .clickable:hover {
     cursor: pointer;
