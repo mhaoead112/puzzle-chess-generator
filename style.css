@@ -304,6 +304,9 @@ main#board div {
     main#board.flip div {
         border-radius: 0;
     }
+    main#board {
+        border-radius: 0;
+    }
 }
 
 /* Board Labels */
