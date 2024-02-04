@@ -290,6 +290,7 @@ function loadPuzzle(puzzle) {
     computerMove(currentPuzzle.moves[0].substring(0, 2), currentPuzzle.moves[0].substring(2, 4));
     lastPuzzleMoveIndex = 0;
 
+    updateGameInfo();
     updateDebug();
 }
 
@@ -308,6 +309,12 @@ function updateDebug() {
     Puzzle ID: <a href="https://lichess.org/training/${currentPuzzle.puzzle_id}">${currentPuzzle.puzzle_id}</a> - 
     Puzzle Rating: ${currentPuzzle.rating} - 
     Player Rating: ${getLocalPlayerRating()} 
+    `;
+}
+
+function updateGameInfo() {
+    document.getElementById('game-info').innerHTML = `
+    Current Rating: ${getLocalPlayerRating()}
     `;
 }
 
