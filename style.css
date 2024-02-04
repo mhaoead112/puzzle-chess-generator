@@ -469,7 +469,7 @@ main.flip #h8:after {
 
 /* Footer */
 footer {
-    
+    display: none;
 }
 
 /* Message */

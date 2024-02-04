@@ -314,7 +314,8 @@ function updateDebug() {
 
 function updateGameInfo() {
     document.getElementById('game-info').innerHTML = `
-    Current Rating: <strong>${getLocalPlayerRating()}</strong>
+    <em>Build v0.0.1</em><br>
+    Current Rating: <strong>${getLocalPlayerRating()}</strong><br>
     `;
 }
 
