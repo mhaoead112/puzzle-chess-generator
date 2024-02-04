@@ -12,8 +12,12 @@
 <body>
 
     <header>
-        <h1>Puzzle ♟ Chess</h1>
-        <p>Work in progress.</p>
+        <button id="menu-button">
+            <!-- menu icon c/o Google Fonts / Material Symbols: https://fonts.google.com/ -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+            <span>menu</span>
+        </button>
+        <h1 id="title">Puzzle ♟ Chess</h1>
     </header>
 
     <main id="board">
@@ -90,7 +94,7 @@
         <div id="h8" class="r"><span></span></div>
     </main>
 
-    <aside id="message">
+    <footer id="message">
         <p id="no-js">
             <strong>Oh no!</strong> Either JavaScript is <a href="https://duckduckgo.com/?q=how+to+enable+javascript" target="_blank">disabled</a>, you have <br>a <a
                 href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors" target="_blank">CORS
@@ -98,30 +102,38 @@
                 href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server"
                 target="_blank">local server</a>.
         </p>
-    </aside>
-
-    <footer>
-        <p>Game by <a href="https://fexd.com/" rel="me" target="_blank">Arlin Schaffel</a></p>
-        <p class="attribution">Pieces by <a href="https://en.wikipedia.org/wiki/User:Cburnett"
-                target="_blank">Cburnett</a>, <a href="http://creativecommons.org/licenses/by-sa/3.0/"
-                target="_blank">CC BY-SA 3.0</a> via <a
-                href="https://commons.wikimedia.org/wiki/Template:SVG_chess_pieces" target="_blank">Wikimedia
-                Commons</a></p>
-        <p class="attribution">Puzzles via <a href="https://database.lichess.org/#puzzles"
-                target="_blank">Lichess Open Database</a>, <a href="https://www.tldrlegal.com/license/creative-commons-cc0-1-0-universal"
-                target="_blank">Creative Commons CC0</a></p>
-        <p class="attribution">Uses <a href="https://github.com/jayasurian123/fen-validator"
-                target="_blank">fen-validator</a>, <a href="https://choosealicense.com/licenses/gpl-3.0/"
-                target="_blank">GNU GPL v3.0</a> by <a href="https://github.com/jayasurian123"
-                target="_blank">Jayasurian Makkoth</a></p>
-        <p class="attribution">Uses <a href="https://github.com/josefjadrny/js-chess-engine"
-                target="_blank">JS-CHESS-ENGINE</a>, <a href="https://choosealicense.com/licenses/mit/"
-                target="_blank">MIT</a> by <a href="https://github.com/josefjadrny" target="_blank">Josef Jadrny</a></p>
-        <p class="attribution">Code available on <a href="https://github.com/FeXd/puzzle-chess"
-                target="_blank">GitHub</a> | Play on <a href="https://fexd.itch.io/puzzle-chess">itch.io</a></p>
     </footer>
 
-    <aside id="debug"></aside>
+    <aside id="debug" style="display: none;"></aside>
+
+    <div id="info-modal" style="display:none;">
+        <div>
+            <button class="close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960"><path d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg>
+                <span>close</span> 
+            </button>
+            <h1 id="title">Puzzle ♟ Chess</h1>
+            <p id="game-info"></p>
+            <h2>Game by <a href="https://fexd.com/" rel="me" target="_blank">Arlin Schaffel</a></h2>
+            <p class="attribution">Pieces by <a href="https://en.wikipedia.org/wiki/User:Cburnett"
+                    target="_blank">Cburnett</a>,<br> <a href="http://creativecommons.org/licenses/by-sa/3.0/"
+                    target="_blank">CC BY-SA 3.0</a> via <a
+                    href="https://commons.wikimedia.org/wiki/Template:SVG_chess_pieces" target="_blank">Wikimedia
+                    Commons</a></p>
+            <p class="attribution">Puzzles via <a href="https://database.lichess.org/#puzzles"
+                    target="_blank">Lichess Open Database</a>,<br> <a href="https://www.tldrlegal.com/license/creative-commons-cc0-1-0-universal"
+                    target="_blank">Creative Commons CC0</a></p>
+            <p class="attribution">Uses <a href="https://github.com/jayasurian123/fen-validator"
+                    target="_blank">fen-validator</a>,<br> <a href="https://choosealicense.com/licenses/gpl-3.0/"
+                    target="_blank">GNU GPL v3.0</a> by <a href="https://github.com/jayasurian123"
+                    target="_blank">Jayasurian Makkoth</a></p>
+            <p class="attribution">Uses <a href="https://github.com/josefjadrny/js-chess-engine"
+                    target="_blank">JS-CHESS-ENGINE</a>,<br> <a href="https://choosealicense.com/licenses/mit/"
+                    target="_blank">MIT</a> by <a href="https://github.com/josefjadrny" target="_blank">Josef Jadrny</a></p>
+            <p class="attribution">Code available on <a href="https://github.com/FeXd/puzzle-chess"
+                    target="_blank">GitHub</a> | Play on <a href="https://fexd.itch.io/puzzle-chess">itch.io</a></p>
+        </div>
+    </div>
 </body>
 
 </html>

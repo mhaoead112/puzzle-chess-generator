@@ -1,22 +1,17 @@
 :root {
-    --square: min(64px, calc(100vw / 9));
-    --light: lightsalmon;
-    --dark: salmon;
-    --background: lightcyan;
-    --background-overflow: rgba(224,255,255, 0.9); 
-    --selected: rgba(102, 51, 153, 0.70);
+    --square: min(64px, calc(100vw / 8));
+    --light: rgb(239,218,181);
+    --dark: rgb(181,136,99);
+    --background: rgb(236,235,232);
+    --selected: rgba(20,85,30,.5);
     --selected-text: white;
-    --previous: rgba(186, 85, 211, 0.50);
-    --hover: black;
-    --hover-text: white;
-    --active: darkRed;
-    --active-text: lightCoral;
+    --previous: rgba(155,199,0,.41);
     --corner-radius: 10px;
-    --message-neutral: rgba(0, 0, 0, 0.5);
+    --message-neutral: rgb(104, 104, 102);
     --message-neutral-text: white;
-    --message-good: rgba(0, 255, 0, 0.5);
-    --message-good-text: black;
-    --message-bad: rgba(255, 0, 0, 0.5);
+    --message-good: #629924;
+    --message-good-text: white;
+    --message-bad: #c33;
     --message-bad-text: white;
 }
 
@@ -29,7 +24,7 @@
 html {
     font-size: 110%;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--background-overflow);
+    background-color: var(--background);
     height: 100%; /* vh but doesn't account for mobile address bar  */
 }
 
@@ -37,26 +32,78 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    background-color: var(--background);
     min-height: 100%; /* vh but doesn't account for mobile address bar  */
-    padding: 0 0.5em;
     margin: 0 auto;
 }
 
 /* Header */
 
 header {
-    margin: calc(var(--square) / 4);
+    /* padding: calc(var(--square) / 4) 0; */
+    width: 100%;
+    border-bottom: 1px solid var(--message-neutral);
+    display: grid;
+    grid-template-columns: 48px 1fr 48px;
+    align-items: center;
 }
 
-header p {
-    margin-top: 0.25em;
+@media screen and (max-width: 400px) {
+    header {
+        grid-template-columns: 48px 1fr;
+    }
+    
+    header h1 {
+        font-size: 1.75em;
+    }
 }
+
+/* Buttons */
+
+#menu-button svg, .close-button svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--message-neutral);
+    margin-bottom: -0.6em;
+}
+
+#menu-button span, .close-button span {
+    font-size: 0.8em;
+    color: var(--message-neutral);
+}
+
+#menu-button, .close-button {
+    padding: 0.5em;
+    width: 48px;
+    border: none;
+    border-radius: var(--corner-radius);
+}
+
+.close-button {
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.close-button svg {
+    fill: white;
+}
+
+.close-button span {
+    color: white;
+}
+
+#menu-button:hover, .close-button:hover {
+    cursor: pointer;
+}
+
+/* Main */
 
 main {
     background-color: var(--light);
+    color: var(--dark);
     display: flex;
     flex-flow: column-reverse wrap;
     height: calc(var(--square) * 8);
@@ -108,17 +155,21 @@ main div.circle.K span,
 main div.circle.k span {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
     background-color:transparent !important;
+    /* TODO: this styling looks better but currently no mobile support */
+    /* border-radius: 50%;
     outline: var(--square) solid var(--selected);
-    outline-offset: calc(var(--square) / 16);
+    outline-offset: calc(var(--square) / 16); */
+    border-radius: 35%;
+    box-shadow: 0 0 0 20px var(--selected);
 }
 
 main div.circle:hover span {
     width: 100%;
     height: 100%;
     border-radius: 0%;
-    background-color: var(--selected);
+    background-color: var(--selected) !important;
+    cursor: pointer;
 }
 
 main div.selected {
@@ -129,6 +180,24 @@ main div.selected span {
     background-color: var(--selected) !important;
 }
 
+main div.P:hover,
+main div.R:hover,
+main div.N:hover,
+main div.B:hover,
+main div.Q:hover,
+main div.K:hover {
+    cursor: pointer;
+}
+
+main.flip div.p:hover,
+main.flip div.r:hover,
+main.flip div.n:hover,
+main.flip div.b:hover,
+main.flip div.q:hover,
+main.flip div.k:hover {
+    cursor: pointer;
+}
+
 /* Board & Squares */
 
 #a1, #c1, #e1, #g1, #b2, #d2, #f2, #h2,
@@ -136,6 +205,7 @@ main div.selected span {
 #a5, #c5, #e5, #g5, #b6, #d6, #f6, #h6,
 #a7, #c7, #e7, #g7, #b8, #d8, #f8, #h8 {
     background-color: var(--dark);
+    color: var(--light);
 }
 
 /* Top left corner */
@@ -176,10 +246,6 @@ main.flip #h1 {
 /* Flip - Top right corner*/
 main.flip #a1 {
     border-radius: 0 var(--corner-radius) 0 0;
-}
-
-main div:hover {
-    cursor: pointer;
 }
 
 main div span {
@@ -242,12 +308,24 @@ main#board div {
     position: relative;
 }
 
+@media screen and (max-width: calc(64px * 8)) {
+    main#board div {
+        border-radius: 0;
+    }
+    main#board.flip div {
+        border-radius: 0;
+    }
+    main#board {
+        border-radius: 0;
+    }
+}
+
 /* Board Labels */
 
 main div:before, main div:after {
     content: "";
     position: absolute;
-    font-size: 0.4em;
+    font-size: 0.6em;
     padding: 0.5em;
 }
 
@@ -389,14 +467,16 @@ main.flip #h8:after {
     content:"h";
 }
 
+/* Footer */
+footer {
+    display: none;
+}
+
 /* Message */
 
-aside#message {
-    border: 1px solid var(--message-neutral-text);
+#message {
+    border: 2px solid var(--message-neutral-text);
     border-radius: var(--corner-radius);
-    margin: calc(var(--square) / 4);
-    margin-bottom: 0;
-    padding: 1em;
     width: calc(var(--square) * 8);
     background-color: var(--message-neutral);
     color: var(--message-neutral-text);
@@ -405,44 +485,39 @@ aside#message {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: all 0.5s;
 }
 
-aside#message #no-js {
+#message #no-js {
     font-size: 0.8em;
 }
 
-aside#message.good {
+#message.good {
+    border-color: var(--message-good-text);
     background-color: var(--message-good);
     color: var(--message-good-text);
 }
 
-aside#message.bad {
+#message.bad {
+    border-color: var(--message-bad-text);
     background-color: var(--message-bad);
     color: var(--message-bad-text);
 }
 
-aside#message a {
+#message a {
     color: var(--message-neutral-text);
     text-decoration: underline;
 }
 
-aside#message p:nth-child(2) {
+#message p:nth-child(2) {
     font-size: 0.7em;
 }
 
-/* Footer */
-
-footer {
-    margin: calc(var(--square) / 4);
-}
-
-footer p:first-child {
-    padding-bottom: 0.25em;
-}
-
-footer p.attribution {
-    font-size: 0.6em;
-    line-height: 1.5em;
+@media screen and (max-width: calc(64px * 8)) {
+    #message {
+        border: none;
+        border-radius: 0;
+    }
 }
 
 .clickable:hover {
@@ -451,9 +526,62 @@ footer p.attribution {
 
 aside#debug {
     position:absolute;
-    top: 0;
-    left: 0;
+    top: 70px;
     padding: 0.5em;
     font-size: 0.6em;
     text-align: left;
+}
+
+/* Modal */
+
+div#info-modal  {
+    backdrop-filter: blur(5px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    z-index: 9001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.75);
+    color: white;
+}
+
+div#info-modal div, div#info-modal div {
+    background-color: var(--message-neutral);
+    border-radius: var(--corner-radius);
+    border: 2px solid black;
+    padding: 1.25em 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: calc(var(--square) * 7);
+}
+
+div#info-modal p.attribution {
+    font-size: 0.8em;
+    line-height: 1.5em;
+}
+
+div#info-modal h1, 
+div#info-modal h2 {
+    margin-bottom: 0.5em;
+}
+
+div#info-modal p {
+    margin-bottom: 1em;
+}
+
+/* div#info-modal p.attribution {
+    margin-bottom: 0;
+} */
+
+div#info-modal a {
+    color: white;
 }

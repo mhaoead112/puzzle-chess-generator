@@ -16,6 +16,7 @@ let playerRating = 400;
 
 window.addEventListener("DOMContentLoaded", (event) => {
     setUpBoard();
+    setUpButtons();
     playerRating = getLocalPlayerRating();
     fetch('./puzzles/offline/puzzles.csv')
         .then(response => response.text())
@@ -70,6 +71,31 @@ function setUpBoard() {
             }
         }
     }
+}
+
+function setUpButtons() {
+    const title = document.getElementById('title');
+    const menuButton = document.getElementById('menu-button');
+    const closeButtons = document.querySelectorAll('.close-button');
+
+    title.addEventListener('pointerdown', function () {
+        let element = document.getElementById('debug'); 
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';
+    });
+
+    menuButton.addEventListener('pointerdown', function () {
+        document.getElementById('info-modal').style.display = 'flex';
+    });
+
+    menuButton.addEventListener('pointerdown', function () {
+        document.getElementById('info-modal').style.display = 'flex';
+    });
+
+    closeButtons.forEach(closeButton => {
+        closeButton.addEventListener('pointerdown', function () {
+            this.parentNode.parentNode.style.display = 'none';
+        });
+    });
 }
 
 function unselectAll() {
@@ -264,6 +290,7 @@ function loadPuzzle(puzzle) {
     computerMove(currentPuzzle.moves[0].substring(0, 2), currentPuzzle.moves[0].substring(2, 4));
     lastPuzzleMoveIndex = 0;
 
+    updateGameInfo();
     updateDebug();
 }
 
@@ -278,9 +305,17 @@ function disableNextPuzzle() {
 
 function updateDebug() {
     document.getElementById('debug').innerHTML = `
-    Puzzle: <a href="https://lichess.org/training/${currentPuzzle.puzzle_id}">${currentPuzzle.puzzle_id}</a><br>
-    Rating: ${currentPuzzle.rating}<br>
-    Player: ${getLocalPlayerRating()}<br>
+    <strong>DEBUG INFO</strong>: 
+    Puzzle ID: <a href="https://lichess.org/training/${currentPuzzle.puzzle_id}">${currentPuzzle.puzzle_id}</a> - 
+    Puzzle Rating: ${currentPuzzle.rating} - 
+    Player Rating: ${getLocalPlayerRating()} 
+    `;
+}
+
+function updateGameInfo() {
+    document.getElementById('game-info').innerHTML = `
+    <em>Build v0.0.1</em><br>
+    Current Rating: <strong>${getLocalPlayerRating()}</strong><br>
     `;
 }
 
