@@ -578,9 +578,9 @@ div#info-modal p {
     margin-bottom: 1em;
 }
 
-div#info-modal p.attribution {
+/* div#info-modal p.attribution {
     margin-bottom: 0;
-}
+} */
 
 div#info-modal a {
     color: white;
