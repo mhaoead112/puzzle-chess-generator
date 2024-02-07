@@ -189,7 +189,7 @@ function playerMove(from, to) {
     console.log(lastPuzzleMoveIndex);
     console.log(currentPuzzle.moves[lastPuzzleMoveIndex]);
     console.log(`${from}${to}`);
-    if(currentPuzzle.moves[lastPuzzleMoveIndex+1] === `${from}${to}`) {
+    if(currentPuzzle.moves[lastPuzzleMoveIndex+1].slice(0,4) === `${from}${to}`) {
         lastPuzzleMoveIndex++;
         puzzleMoveGood(from, to);
     } else {
