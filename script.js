@@ -192,33 +192,23 @@ function computerMove(from, to) {
 }
 
 function playerMove(from, to) {
-    console.log('MOVE MOVE MOVE');
-    console.log(lastPuzzleMoveIndex);
-    console.log(currentPuzzle);
-    console.log(currentPuzzle.moves[lastPuzzleMoveIndex]);
-    console.log(currentPuzzle.moves[lastPuzzleMoveIndex+1]);
-    console.log(`${from}${to}`);
-    if(currentPuzzle.moves[lastPuzzleMoveIndex+1].slice(0,4) === `${from}${to}`) {
+    let best_move = currentPuzzle.moves[lastPuzzleMoveIndex+1];
+    // check if move is solution - slice to avoid possible promotion char
+    if(best_move.slice(0,4) === `${from}${to}`) {
         lastPuzzleMoveIndex++;
-        console.log(currentPuzzle.moves[lastPuzzleMoveIndex]);
-        // if move is length 5, it has promotion
-        if (currentPuzzle.moves[lastPuzzleMoveIndex].length === 5) {
-        console.log('GOOD GOOD GOOD 1' + currentPuzzle.moves[lastPuzzleMoveIndex].slice(4));
-            
-            puzzleMoveGood(from, to, currentPuzzle.moves[lastPuzzleMoveIndex].slice(4).toUpperCase());
+        // if best_move is length 5, it has promotion
+        if (best_move.length === 5) {
+            // grab char for promotion
+            puzzleMoveGood(from, to, best_move.slice(4));
         } else {
-        console.log('GOOD GOOD GOOD 2');
-
             puzzleMoveGood(from, to);
         }
     } else {
-        console.log('BAD BAD BAD');
         puzzleMoveBad(from, to);
     }
 }
 
 function puzzleMoveGood(from, to, promote = null) {
-    console.log(`from ${from} to ${to} promote ${promote}`);
     movePiece(from, to, promote);
     lastPuzzleMoveIndex++;
     if(currentStatus.isFinished || lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
@@ -240,7 +230,6 @@ function puzzleMoveGood(from, to, promote = null) {
 function puzzleMoveBad(from, to) {
     const backupStatus = currentFEN;
     const backupPrevious = document.querySelectorAll('.previous');
-    console.log(backupPrevious);
     movePiece(from, to);
     updateMessage('There is a better move, try again.', 'bad');
     puzzle_solved_clean = false;
@@ -254,13 +243,15 @@ function puzzleMoveBad(from, to) {
 }
 
 function movePiece(from, to, promote = null) {
-    console.log(`move ${from} to ${to}`);
     game.move(from, to);
     if (promote) {
-        game.setPiece(to,promote);
+        if (currentStatus.turn === "white") {
+            game.setPiece(to,promote.toUpperCase());
+        } else {
+            game.setPiece(to,promote.toLowerCase());
+        }
     }
     currentStatus = game.exportJson();
-    console.log(currentStatus);
     currentFEN = game.exportFEN(currentStatus);
     loadBoard(currentFEN);
     document.getElementById(from).classList.add('previous');
@@ -270,9 +261,6 @@ function movePiece(from, to, promote = null) {
 const loadRandomPuzzle = () => {
     const minRating = Math.max(0, getLocalPlayerRating() - 100);
     const maxRating = getLocalPlayerRating() + 100;
-
-    console.log(minRating);
-    console.log(maxRating); 
 
     const eligibleRatings = Object.keys(puzzles).filter(rating => rating >= minRating && rating <= maxRating);
 
