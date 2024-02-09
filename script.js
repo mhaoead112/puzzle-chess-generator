@@ -192,19 +192,34 @@ function computerMove(from, to) {
 }
 
 function playerMove(from, to) {
+    console.log('MOVE MOVE MOVE');
     console.log(lastPuzzleMoveIndex);
+    console.log(currentPuzzle);
     console.log(currentPuzzle.moves[lastPuzzleMoveIndex]);
+    console.log(currentPuzzle.moves[lastPuzzleMoveIndex+1]);
     console.log(`${from}${to}`);
     if(currentPuzzle.moves[lastPuzzleMoveIndex+1].slice(0,4) === `${from}${to}`) {
         lastPuzzleMoveIndex++;
-        puzzleMoveGood(from, to);
+        console.log(currentPuzzle.moves[lastPuzzleMoveIndex]);
+        // if move is length 5, it has promotion
+        if (currentPuzzle.moves[lastPuzzleMoveIndex].length === 5) {
+        console.log('GOOD GOOD GOOD 1' + currentPuzzle.moves[lastPuzzleMoveIndex].slice(4));
+            
+            puzzleMoveGood(from, to, currentPuzzle.moves[lastPuzzleMoveIndex].slice(4).toUpperCase());
+        } else {
+        console.log('GOOD GOOD GOOD 2');
+
+            puzzleMoveGood(from, to);
+        }
     } else {
+        console.log('BAD BAD BAD');
         puzzleMoveBad(from, to);
     }
 }
 
-function puzzleMoveGood(from, to) {
-    movePiece(from, to);
+function puzzleMoveGood(from, to, promote = null) {
+    console.log(`from ${from} to ${to} promote ${promote}`);
+    movePiece(from, to, promote);
     lastPuzzleMoveIndex++;
     if(currentStatus.isFinished || lastPuzzleMoveIndex >= currentPuzzle.moves.length) {
         updateMessage('<p>Puzzle complete!</p><p class="show">Click for next puzzle.</p>', 'good');
@@ -238,9 +253,12 @@ function puzzleMoveBad(from, to) {
     }, speed);
 }
 
-function movePiece(from, to) {
+function movePiece(from, to, promote = null) {
     console.log(`move ${from} to ${to}`);
     game.move(from, to);
+    if (promote) {
+        game.setPiece(to,promote);
+    }
     currentStatus = game.exportJson();
     console.log(currentStatus);
     currentFEN = game.exportFEN(currentStatus);
