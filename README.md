@@ -23,10 +23,10 @@ I try to write code that beginners can understand. Keep everything simple. Avoid
   - puzzles were selected from [Lichess Open Database](https://database.lichess.org/#puzzles)
 - in a future update, support for the **[Lichess.org API](https://lichess.org/api)** is planned
   - this will enable use of the entire puzzle database
-- [Pawn Promotion](https://en.wikipedia.org/wiki/Promotion_(chess)) is currently not supported.
-  - this will be added in a future update
+- [pawn promotion](https://en.wikipedia.org/wiki/Promotion_(chess)) is supported
+  - but the piece will be automatically chosen based on the puzzle solution
 - the **current player rating** is visible in the **☰ menu**
-- clicking the **Puzzle ♟ Chess** title will reveal a **debug information**
+- double clicking the **Puzzle ♟ Chess** title will reveal a **debug information**
 
 ## 🤝 Attribution
 
