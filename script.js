@@ -26,8 +26,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
     setUpButtons();
     params = getURLSearchParams();
 
-    // force set player rating if in params
-    if (params.get('rating') !== undefined) {
+    // force set player rating if in params and is a number
+    if (params.get('rating') != null && !isNaN(params.get('rating'))) {
         playerRating = params.get('rating');
         storeLocalPlayerRating(playerRating);
     } else {
@@ -38,7 +38,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         .then(response => response.text())
         .then(csvString => {
             puzzles = initPuzzles(csvString);
-            if (puzzles['param'] === undefined) {
+            if (puzzles['param'] == null) {
                 loadRandomPuzzle();
             } else {
                 loadPuzzle(puzzles['param']);
