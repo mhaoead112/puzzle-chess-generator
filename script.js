@@ -18,21 +18,30 @@ let currentFEN = '';
 let currentStatus = '';
 let lastPuzzleMoveIndex = 0;
 let puzzles = {};
-let puzzle_from_param = '';
+let params = '';
 let playerRating = 400;
 
 window.addEventListener("DOMContentLoaded", (event) => {
     setUpBoard();
     setUpButtons();
-    playerRating = getLocalPlayerRating();
+    params = getURLSearchParams();
+
+    // force set player rating if in params
+    if (params.get('rating') !== undefined) {
+        playerRating = params.get('rating');
+        storeLocalPlayerRating(playerRating);
+    } else {
+        playerRating = getLocalPlayerRating();        
+    }
+
     fetch('./puzzles/offline/puzzles.csv')
         .then(response => response.text())
         .then(csvString => {
             puzzles = initPuzzles(csvString);
-            if (puzzle_from_param === '') {
+            if (puzzles['param'] === undefined) {
                 loadRandomPuzzle();
             } else {
-                loadPuzzle(puzzle_from_param);
+                loadPuzzle(puzzles['param']);
             }
         })
         .catch(error => {
@@ -341,7 +350,6 @@ function updateGameInfo() {
 function initPuzzles(csvString) {
     const lines = csvString.split('\n');
     const puzzles = {};
-    const puzzleParam = getPuzzleParam();
 
     lines.forEach(line => {
         if (line.trim() !== '') {
@@ -355,8 +363,8 @@ function initPuzzles(csvString) {
         puzzles[rating].push(puzzle);
 
             // if a puzzle id was specified via URL
-            if (puzzleParam === puzzle_id) {
-                puzzle_from_param = puzzle;
+            if (params.get('puzzle') === puzzle_id) {
+                puzzles['param'] = puzzle;
             }
         }
     });
@@ -394,15 +402,10 @@ function getLocalPlayerRating() {
     }
 }
 
-function getPuzzleParam() {
+function getURLSearchParams() {
     // Get the full URL (Example: https://puzzlechess.ca/?puzzle=123456)
     const url = new URL(window.location.href);
 
     // Access the URLSearchParams object
-    const params = new URLSearchParams(url.search);
-
-    // Get values of 'puzzle' (Example: 123456)
-    const puzzle = params.get('puzzle');
-
-    return puzzle;
+    return new URLSearchParams(url.search);
 }
