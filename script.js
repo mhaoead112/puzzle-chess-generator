@@ -98,7 +98,7 @@ function setUpButtons() {
     const menuButton = document.getElementById('menu-button');
     const closeButtons = document.querySelectorAll('.close-button');
 
-    title.addEventListener('pointerdown', function () {
+    title.addEventListener('dblclick', function () {
         let element = document.getElementById('debug'); 
         element.style.display = element.style.display === 'none' ? 'block' : 'none';
     });
